@@ -61,5 +61,12 @@
     "image": "images/gatav.jpg",
     "description": "تختيم لعبة جاتا فى  ",
     "downloader": "https://www.mediafire.com/file/272tll8z1t0md4c/GTA_V_By_Aparze.Net.rar/file"
+    },
+  {
+    "id": 10,
+    "title": "Hard Disk Sentinel",
+    "image": "images/Hard Disk Sentinel.png",
+    "description": "برنامج يوضح لك صحة وحالة الهارد ديسك بورتابل ولكن الكراك يتطلب منك الغاء الانتى فايرس",
+    "downloader": "https://www.mediafire.com/file/u36lchggna7s3y1/Hard_Disk_Sentinel_Pro_5.30_Build_9417_Portable_By_Aparze.Net.rar/file"
     }
 ]
