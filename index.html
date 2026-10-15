@@ -104,7 +104,7 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
-            direction: rtl; /* ضبط الاتجاه الصحيح للغة العربية */
+            direction: rtl;
         }
 
         .input-group {
@@ -131,6 +131,13 @@
             text-align: center;
             font-size: 1rem;
             box-sizing: border-box;
+        }
+
+        /* إخفاء أزرار الزيادة والنقصان الافتراضية في حقول الأرقام */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
         }
 
         .btn-calc {
@@ -226,15 +233,15 @@
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day" placeholder="DD" min="1" max="31">
+                    <input type="number" id="day" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month" placeholder="MM" min="1" max="12">
+                    <input type="number" id="month" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
-                    <input type="number" id="year" placeholder="YYYY" min="1900" max="2026">
+                    <input type="number" id="year" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
                 </div>
             </div>
             <button class="btn-calc" onclick="calculateAge()">🎯 احسب العمر</button>
@@ -250,15 +257,15 @@
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day1" placeholder="DD" min="1" max="31">
+                    <input type="number" id="day1" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month1" placeholder="MM" min="1" max="12">
+                    <input type="number" id="month1" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
-                    <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026">
+                    <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
                 </div>
             </div>
 
@@ -266,15 +273,15 @@
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day2" placeholder="DD" min="1" max="31">
+                    <input type="number" id="day2" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month2" placeholder="MM" min="1" max="12">
+                    <input type="number" id="month2" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
-                    <input type="number" id="year2" placeholder="YYYY" min="1900" max="2026">
+                    <input type="number" id="year2" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
                 </div>
             </div>
 
@@ -289,7 +296,7 @@
     </footer>
 
     <script>
-        // كود حساب العمر الدقيق
+        // كود حساب العمر
         function calculateAge() {
             const d = parseInt(document.getElementById('day').value);
             const m = parseInt(document.getElementById('month').value);
@@ -344,7 +351,7 @@
 
             if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ التكافؤ الصحيحة للشخصين!';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين!';
                 return;
             }
 
@@ -356,7 +363,6 @@
 
             let older = date1 < date2 ? "الشخص الأول" : "الشخص الثاني";
 
-            // حساب الأعوام والشهور والأيام للفرق
             let years = Math.floor(totalDays / 365.25);
             let remDays = totalDays % 365.25;
             let months = Math.floor(remDays / 30.4375);
