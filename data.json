@@ -33,5 +33,12 @@
     "image": "Directx 2017.jpg",
     "description": "ديركت اكس لتشغيل الالعاب والفيديوهات  ",
     "downloader": "https://www.mediafire.com/file/626rgj6ymhopw3e/DirectX_12-1-2017.rar/file"
+    },
+   {
+    "id": 6,
+    "title": "Driver Booster",
+    "image": "images/Driver Booster v9.5.0.237 Portable.jpg",
+    "description": "دريفر بوستر لتحميل التعريفات بروتابل ",
+    "downloader": "https://www.mediafire.com/file/87rhowbdwuz4vd4/Driver_Booster_v9.5.0.237_Portable.7z/file"
     }
 ]
