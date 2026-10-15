@@ -105,10 +105,11 @@
             flex-direction: column;
         }
 
+        /* عرض الصورة كاملة دون أي قص مع الحفاظ على الأبعاد */
         .ad-image {
             width: 100%;
             height: auto;
-            max-height: 500px;
+            max-height: 550px;
             object-fit: contain;
             background-color: #0d0d0d;
             display: block;
@@ -218,7 +219,7 @@
         <p class="page-subtitle">تابع أحدث العروض والمسابقات والخدمات المميزة الحصرية.</p>
 
         <div class="ads-container" id="adsContainer">
-            <!-- سيتم تعبئة البيانات تلقائياً -->
+            <!-- سيتم تعبئة البيانات تلقائياً من ads.json -->
         </div>
     </main>
 
@@ -237,34 +238,30 @@
                     const card = document.createElement('div');
                     card.className = 'ad-card';
 
-                    // التأكد من استخراج الروابط سواء بالمسميات القديمة أو الجديدة
-                    let downloadUrl = (ad.downloadUrl || ad.linkText || '').trim();
-                    let whatsappUrl = (ad.whatsappUrl || ad.linkUrl || '').trim();
+                    // استخراج الروابط مع معالجة أي مسافات زائدة
+                    const downloadUrl = (ad.downloadUrl || ad.linkText || '').trim();
+                    const whatsappUrl = (ad.whatsappUrl || ad.linkUrl || '').trim();
 
-                    // التأكد من أن الرابط يبدأ بـ http أو https
-                    if (downloadUrl && !downloadUrl.startsWith('http')) {
-                        downloadUrl = '';
-                    }
-                    if (whatsappUrl && !whatsappUrl.startsWith('http')) {
-                        whatsappUrl = '';
-                    }
-
+                    // تجهيز أزرار التحميل والواتساب بشكل دقيق
                     let buttonsHTML = '';
-                    if (downloadUrl) {
-                        buttonsHTML += `<a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-download">🎮 تحميل اللعبة الآن</a>`;
-                    }
-                    if (whatsappUrl) {
-                        buttonsHTML += `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">📲 تواصل عبر الواتساب</a>`;
+
+                    if (downloadUrl && downloadUrl.startsWith('http')) {
+                        buttonsHTML += '<a href="' + downloadUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-download">🎮 تحميل اللعبة الآن</a>';
                     }
 
-                    card.innerHTML = `
-                        ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" class="ad-image" onerror="this.style.display='none'">` : ''}
-                        <div class="ad-content">
-                            <h2 class="ad-title">${ad.title}</h2>
-                            <p class="ad-desc">${ad.description}</p>
-                            ${buttonsHTML ? `<div class="buttons-group">\${buttonsHTML}</div>` : ''}
-                        </div>
-                    `;
+                    if (whatsappUrl && whatsappUrl.startsWith('http')) {
+                        buttonsHTML += '<a href="' + whatsappUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">📲 تواصل عبر الواتساب</a>';
+                    }
+
+                    let imageHTML = ad.image ? '<img src="' + ad.image + '" alt="' + ad.title + '" class="ad-image" onerror="this.style.display=\'none\'">' : '';
+                    let buttonsGroupHTML = buttonsHTML ? '<div class="buttons-group">' + buttonsHTML + '</div>' : '';
+
+                    card.innerHTML = imageHTML + 
+                        '<div class="ad-content">' +
+                            '<h2 class="ad-title">' + ad.title + '</h2>' +
+                            '<p class="ad-desc">' + ad.description + '</p>' +
+                            buttonsGroupHTML +
+                        '</div>';
 
                     container.appendChild(card);
                 });
