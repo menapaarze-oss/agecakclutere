@@ -202,7 +202,7 @@
     </footer>
 
     <script>
-        // قراءة البرامج من ملف data.json وعرضها بشكل منظم
+        // قراءة البرامج من ملف data.json وعرضها بشكل منظم ومضمون
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
@@ -213,12 +213,14 @@
                     const card = document.createElement('div');
                     card.className = 'program-card';
 
+                    const downloadLink = prog.downloader ? prog.downloader : '#';
+
                     card.innerHTML = `
                         ${prog.image ? `<img src="${prog.image}" alt="${prog.title}" class="program-image">` : ''}
                         <div class="program-content">
                             <h3 class="program-title">${prog.title}</h3>
                             <p class="program-desc">${prog.description}</p>
-                            ${prog.downloader ? `<a href="\${prog.downloader}" target="_blank" class="download-btn">تحميل عبر MediaFire 📥</a>` : ''}
+                            <a href="${downloadLink}" target="_blank" class="download-btn">تحميل عبر MediaFire 📥</a>
                         </div>
                     `;
 
