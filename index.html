@@ -104,7 +104,7 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
-            direction: ltr;
+            direction: rtl; /* ضبط الاتجاه الصحيح للغة العربية */
         }
 
         .input-group {
@@ -112,18 +112,18 @@
             flex-direction: column;
             align-items: center;
             flex: 1;
-            max-width: 100px;
+            max-width: 110px;
         }
 
         .input-group label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             margin-bottom: 5px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             background-color: #2a2a2a;
             border: 1px solid var(--border-color);
             border-radius: 5px;
@@ -155,6 +155,19 @@
             font-weight: bold;
             margin-bottom: 8px;
             text-align: right;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #262626;
+            border-radius: 8px;
+            border-right: 4px solid var(--accent-color);
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+            line-height: 1.6;
         }
 
         footer {
@@ -212,19 +225,20 @@
             <p class="calc-subtitle">اكتب تاريخ ميلادك ثم اضغط احسب</p>
             <div class="inputs-row">
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" placeholder="YYYY">
+                    <label>يوم</label>
+                    <input type="number" id="day" placeholder="DD" min="1" max="31">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" placeholder="MM">
+                    <input type="number" id="month" placeholder="MM" min="1" max="12">
                 </div>
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" placeholder="DD">
+                    <label>سنة</label>
+                    <input type="number" id="year" placeholder="YYYY" min="1900" max="2026">
                 </div>
             </div>
-            <button class="btn-calc">🎯 احسب العمر</button>
+            <button class="btn-calc" onclick="calculateAge()">🎯 احسب العمر</button>
+            <div id="ageResult" class="result-box"></div>
         </div>
 
         <!-- حاسبة فرق العمر -->
@@ -235,44 +249,122 @@
             <div class="section-label">👤 الشخص الأول:</div>
             <div class="inputs-row">
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" placeholder="YYYY">
+                    <label>يوم</label>
+                    <input type="number" id="day1" placeholder="DD" min="1" max="31">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" placeholder="MM">
+                    <input type="number" id="month1" placeholder="MM" min="1" max="12">
                 </div>
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" placeholder="DD">
+                    <label>سنة</label>
+                    <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026">
                 </div>
             </div>
 
             <div class="section-label">👤 الشخص الثاني:</div>
             <div class="inputs-row">
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" placeholder="YYYY">
+                    <label>يوم</label>
+                    <input type="number" id="day2" placeholder="DD" min="1" max="31">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" placeholder="MM">
+                    <input type="number" id="month2" placeholder="MM" min="1" max="12">
                 </div>
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" placeholder="DD">
+                    <label>سنة</label>
+                    <input type="number" id="year2" placeholder="YYYY" min="1900" max="2026">
                 </div>
             </div>
 
-            <button class="btn-calc">🎯 احسب فرق العمر</button>
+            <button class="btn-calc" onclick="calculateAgeDiff()">🎯 احسب فرق العمر</button>
+            <div id="diffResult" class="result-box"></div>
         </div>
     </main>
 
-    <!-- الـ Footer المحدث مع رابط شروط الاستخدام واسم ابرزى نت الصحيح -->
     <footer>
         <div>&copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت</div>
         <div><a href="terms.html">📌 شروط الاستخدام وسياسة الموقع</a></div>
     </footer>
 
+    <script>
+        // كود حساب العمر الدقيق
+        function calculateAge() {
+            const d = parseInt(document.getElementById('day').value);
+            const m = parseInt(document.getElementById('month').value);
+            const y = parseInt(document.getElementById('year').value);
+            const resDiv = document.getElementById('ageResult');
+
+            if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
+                resDiv.style.display = 'block';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ ميلاد صحيح!';
+                return;
+            }
+
+            const birthDate = new Date(y, m - 1, d);
+            const today = new Date();
+
+            if (birthDate > today) {
+                resDiv.style.display = 'block';
+                resDiv.innerHTML = '⚠️ تاريخ الميلاد لا يمكن أن يكون في المستقبل!';
+                return;
+            }
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = `🎉 عمرك الآن: <span>${years}</span> سنة، و <span>${months}</span> شهر، و <span>${days}</span> يوم.`;
+        }
+
+        // كود حساب فرق العمر بين شخصين
+        function calculateAgeDiff() {
+            const d1 = parseInt(document.getElementById('day1').value);
+            const m1 = parseInt(document.getElementById('month1').value);
+            const y1 = parseInt(document.getElementById('year1').value);
+
+            const d2 = parseInt(document.getElementById('day2').value);
+            const m2 = parseInt(document.getElementById('month2').value);
+            const y2 = parseInt(document.getElementById('year2').value);
+
+            const resDiv = document.getElementById('diffResult');
+
+            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2) {
+                resDiv.style.display = 'block';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ التكافؤ الصحيحة للشخصين!';
+                return;
+            }
+
+            let date1 = new Date(y1, m1 - 1, d1);
+            let date2 = new Date(y2, m2 - 1, d2);
+
+            let diffTime = Math.abs(date2 - date1);
+            let totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            let older = date1 < date2 ? "الشخص الأول" : "الشخص الثاني";
+
+            // حساب الأعوام والشهور والأيام للفرق
+            let years = Math.floor(totalDays / 365.25);
+            let remDays = totalDays % 365.25;
+            let months = Math.floor(remDays / 30.4375);
+            let days = Math.floor(remDays % 30.4375);
+
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br><span>${years}</span> سنة، و <span>${months}</span> شهر، و <span>${days}</span> يوم.`;
+        }
+    </script>
 </body>
 </html>
