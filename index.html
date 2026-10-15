@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- كود التحقق الخاص بـ Adsterra -->
+    <meta name="f49c7eae45fb5b0f4ddd010607237d76d627e972" content="f49c7eae45fb5b0f4ddd010607237d76d627e972" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة العمر - Aparze.Net</title>
@@ -185,7 +188,6 @@
             font-size: 1.1rem;
         }
 
-        /* تنسيق الخط الثقيل الذهبي للنتائج */
         .result-box span.gold-text {
             color: var(--accent-color);
             font-weight: 900;
@@ -293,7 +295,7 @@
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month2"></select>
+                    <select id="month2"></select>
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
@@ -312,7 +314,6 @@
     </footer>
 
     <script>
-        // تعبئة القوائم المنسدلة تلقائياً للأيام والشهور
         function populateSelects() {
             const daySelects = ['day', 'day1', 'day2'];
             const monthSelects = ['month', 'month1', 'month2'];
@@ -336,7 +337,6 @@
 
         window.onload = populateSelects;
 
-        // دالة صياغة النص الذهبي المميز
         function formatAgeText(years, months, days) {
             let yText = years === 1 ? 'سنة واحدة' : (years === 2 ? 'سنتان' : (years >= 3 && years <= 10 ? `${years} سنوات` : `${years} سنة`));
             let mText = months === 1 ? 'شهر واحد' : (months === 2 ? 'شهران' : (months >= 3 && months <= 10 ? `${months} شهور` : `${months} شهر`));
@@ -388,7 +388,6 @@
             resDiv.style.display = 'block';
             const formattedResult = formatAgeText(years, months, days);
 
-            // عيد الميلاد الاحتفالي
             if (today.getDate() === d && (today.getMonth() + 1) === m) {
                 confetti({
                     particleCount: 180,
