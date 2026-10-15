@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابرزى نت | مكتبة البرامج والتطبيقات</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 0; }
+        header { background-color: #1a252f; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #3498db; text-decoration: none; }
+        nav a { color: #fff; text-decoration: none; margin-right: 15px; font-weight: 500; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-title { font-size: 18px; margin: 0 0 10px 0; color: #2c3e50; }
+        .card-desc { font-size: 14px; color: #666; margin-bottom: 15px; }
+        .btn-download { display: block; text-align: center; background: #007bff; color: #fff; text-decoration: none; padding: 10px; border-radius: 4px; font-weight: bold; }
+        .btn-download:hover { background: #0056b3; }
+        footer { background: #1a252f; color: #aaa; text-align: center; padding: 15px; margin-top: 40px; font-size: 14px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 8px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">🌐 ابرزى نت (Aparze)</a>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="programs.html" style="color: #3498db;">📁 قسم البرامج</a>
+        <a href="about.html">عن الموقع والاتصال</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h1 style="text-align: center;">مكتبة البرامج والأدوات المباشرة</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">تحميل مباشر لأحدث البرامج والأدوات الخدمية من ابرزى نت عبر ميديا فاير.</p>
+
+    <div id="programs-grid" class="grid">
+        <!-- سيتم تحميل البرامج هنا تلقائياً من ملف JSON -->
+    </div>
+</div>
+
+<footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - ابرزى نت (Aparze Net)</p>
+    <p>
+        <a href="privacy.html">سياسة الخصوصية</a> | 
+        <a href="terms.html">شروط الاستخدام</a> | 
+        <a href="about.html">عن الموقع / اتصل بنا</a>
+    </p>
+</footer>
+
+<script>
+    // جلب ملف البرامج وعرضها
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.getElementById('programs-grid');
+            grid.innerHTML = '';
+            data.forEach(prog => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${prog.image}" alt="${prog.title}">
+                        <div class="card-body">
+                            <div>
+                                <h3 class="card-title">${prog.title}</h3>
+                                <p class="card-desc">${prog.description}</p>
+                            </div>
+                            <a href="${prog.downloadUrl}" target="_blank" class="btn-download">📥 تحميل عبر MediaFire</a>
+                        </div>
+                    </div>
+                `;
+            });
+        })
+        .catch(err => console.error('خطأ في تحميل البرامج:', err));
+</script>
+
+</body>
+</html>

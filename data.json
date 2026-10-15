@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "برنامج USB Calc",
+    "image": "https://via.placeholder.com/300x180?text=USB+Calc",
+    "description": "تطبيق لسطح المكتب لحساب وتوزيع أدوات USB بشكل احترافي.",
+    "downloadUrl": "https://www.mediafire.com"
+  },
+  {
+    "id": 2,
+    "title": "أداة تنظيف وتسريع الجهاز",
+    "image": "https://via.placeholder.com/300x180?text=System+Cleaner",
+    "description": "أداة خفيفة لتنظيف الملفات المؤقتة وتسريع أداء الكمبيوتر.",
+    "downloadUrl": "https://www.mediafire.com"
+  }
+]

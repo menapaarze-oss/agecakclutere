@@ -3,252 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة العمر وفرق العمر</title>
+    <title>ابرزى نت | حاسبة العمر وتوافق الأعمار</title>
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 30px 0;
-        }
-        .container {
-            background-color: #1a1a1a;
-            padding: 25px;
-            border-radius: 10px;
-            border: 2px solid #ffcc00;
-            text-align: center;
-            width: 380px;
-            margin-bottom: 25px;
-        }
-        h2 {
-            color: #ffcc00;
-            margin-top: 0;
-        }
-        .section-title {
-            color: #ffcc00;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 15px 0 5px 0;
-            text-align: right;
-        }
-        .inputs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            width: 30%;
-        }
-        label {
-            color: #aaa;
-            margin-bottom: 5px;
-            font-size: 13px;
-        }
-        input {
-            background-color: #222;
-            border: 2px solid #ffcc00;
-            color: #ffcc00;
-            padding: 8px;
-            text-align: center;
-            font-size: 16px;
-            border-radius: 5px;
-            outline: none;
-        }
-        .btn-calculate {
-            background-color: #ffcc00;
-            color: #000;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .btn-calculate:hover {
-            background-color: #e6b800;
-        }
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 2px solid #ffcc00;
-            border-radius: 5px;
-            background-color: #111;
-        }
-        .results {
-            font-size: 18px;
-            color: #00ffcc;
-            font-weight: bold;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 0; }
+        header { background-color: #1a252f; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #3498db; text-decoration: none; }
+        nav a { color: #fff; text-decoration: none; margin-right: 15px; font-weight: 500; }
+        nav a:hover { color: #3498db; }
+        .container { max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; text-align: center; }
+        .calc-box { background: #eef2f7; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="date"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; background: #27ae60; color: white; border: none; padding: 12px; margin-top: 15px; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #219150; }
+        .result { margin-top: 15px; padding: 15px; background: #d4edda; color: #155724; border-radius: 4px; display: none; text-align: center; font-weight: bold; }
+        .content-section { line-height: 1.8; margin-top: 40px; border-top: 2px solid #eee; padding-top: 20px; }
+        footer { background: #1a252f; color: #aaa; text-align: center; padding: 15px; margin-top: 40px; font-size: 14px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
 
-    <!-- 1. القسم الأول: حاسبة العمر الفردية -->
-    <div class="container">
-        <h2>🎂 حاسبة العمر</h2>
-        <p style="font-size: 12px; color: #aaa;">اكتب تاريخ ميلادك ثم اضغط احسب</p>
-        
-        <div class="inputs">
-            <div class="input-group">
-                <label>اليوم</label>
-                <input type="number" id="day1" placeholder="DD" min="1" max="31">
-            </div>
-            <div class="input-group">
-                <label>الشهر</label>
-                <input type="number" id="month1" placeholder="MM" min="1" max="12">
-            </div>
-            <div class="input-group">
-                <label>السنة</label>
-                <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026">
-            </div>
-        </div>
+<header>
+    <a href="index.html" class="logo">🌐 ابرزى نت (Aparze)</a>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="programs.html">📁 قسم البرامج</a>
+        <a href="about.html">عن الموقع والاتصال</a>
+    </nav>
+</header>
 
-        <button class="btn-calculate" onclick="calculateAge()">احسب العمر 🎯</button>
+<div class="container">
+    <h1>حاسبة العمر وتوافق الأعمار الدقيقة</h1>
+    <p style="text-align: center; color: #666;">احسب عمرك بالظبط واعرف الفرق الزمني بينك وبين أي شخص آخر بالسنين والأيام.</p>
 
-        <div class="result-box" id="resultBox1" style="display:none;">
-            <div class="results" id="resultText1"></div>
-            <p id="totalDays1" style="color: #ffcc00; margin-top: 10px; font-size: 14px;"></p>
-        </div>
+    <!-- حاسبة العمر الفردي -->
+    <div class="calc-box">
+        <h2>1. احسب عمرك الآن</h2>
+        <label>تاريخ ميلادك:</label>
+        <input type="date" id="birthdate1">
+        <button onclick="calculateAge()">حساب العمر</button>
+        <div id="result1" class="result"></div>
     </div>
 
-
-    <!-- 2. القسم الثاني: حاسبة فرق العمر بين شخصين -->
-    <div class="container">
-        <h2>⚖️ حاسبة فرق العمر</h2>
-        <p style="font-size: 12px; color: #aaa;">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
-        
-        <div class="section-title">👤 الشخص الأول:</div>
-        <div class="inputs">
-            <div class="input-group">
-                <label>اليوم</label>
-                <input type="number" id="dayA" placeholder="DD" min="1" max="31">
-            </div>
-            <div class="input-group">
-                <label>الشهر</label>
-                <input type="number" id="monthA" placeholder="MM" min="1" max="12">
-            </div>
-            <div class="input-group">
-                <label>السنة</label>
-                <input type="number" id="yearA" placeholder="YYYY" min="1900" max="2026">
-            </div>
-        </div>
-
-        <div class="section-title">👤 الشخص الثاني:</div>
-        <div class="inputs">
-            <div class="input-group">
-                <label>اليوم</label>
-                <input type="number" id="dayB" placeholder="DD" min="1" max="31">
-            </div>
-            <div class="input-group">
-                <label>الشهر</label>
-                <input type="number" id="monthB" placeholder="MM" min="1" max="12">
-            </div>
-            <div class="input-group">
-                <label>السنة</label>
-                <input type="number" id="yearB" placeholder="YYYY" min="1900" max="2026">
-            </div>
-        </div>
-
-        <button class="btn-calculate" onclick="calculateAgeDiff()">احسب فرق العمر 🎯</button>
-
-        <div class="result-box" id="resultBox2" style="display:none;">
-            <p style="color: #aaa; margin: 0 0 5px 0; font-size: 13px;">فرق العمر هو:</p>
-            <div class="results" id="resultText2"></div>
-            <p id="totalDays2" style="color: #ffcc00; margin-top: 10px; font-size: 14px; font-weight: bold;"></p>
-        </div>
+    <!-- حاسبة التوافق والفرق بين شخصين -->
+    <div class="calc-box">
+        <h2>2. الفرق بين عمر شخصين</h2>
+        <label>تاريخ ميلاد الشخص الأول:</label>
+        <input type="date" id="p1_date">
+        <label>تاريخ ميلاد الشخص الثاني:</label>
+        <input type="date" id="p2_date">
+        <button onclick="compareAges()">حساب الفرق والتطابق</button>
+        <div id="result2" class="result"></div>
     </div>
 
-    <script>
-        // دالة حاسبة العمر الفردية
-        function calculateAge() {
-            const d = parseInt(document.getElementById('day1').value);
-            const m = parseInt(document.getElementById('month1').value) - 1;
-            const y = parseInt(document.getElementById('year1').value);
+    <!-- محتوى نصي لرفع تقييم AdSense -->
+    <div class="content-section">
+        <h2>عن أدوات حساب العمر والتقويم</h2>
+        <p>تساعدك أدوات حساب العمر المتقدمة على معرفة التفاصيل الدقيقة حول تاريخ ميلادك، بما في ذلك العمر بالسنوات والشهور والأيام. كما تتيح لك أداة مقارنة الأعمار معرفة الفارق الزمني بين الأصدقاء أو أفراد العائلة بسهولة ودقة عالية.</p>
+        <p>موقع ابرزى نت يقدم هذه الأدوات المجانية لمساعدتك في تنظيم وتخطيط مناسباتك السنوية ومعرفة مواعيد الميلاد بالتقويم الميلادي الهجري.</p>
+    </div>
+</div>
 
-            if (isNaN(d) || isNaN(m) || isNaN(y)) {
-                alert('الرجاء إدخال تاريخ الميلاد بشكل صحيح');
-                return;
-            }
+<footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - ابرزى نت (Aparze Net)</p>
+    <p>
+        <a href="privacy.html">سياسة الخصوصية</a> | 
+        <a href="terms.html">شروط الاستخدام</a> | 
+        <a href="about.html">عن الموقع / اتصل بنا</a>
+    </p>
+</footer>
 
-            const birthDate = new Date(y, m, d);
-            const today = new Date();
+<script>
+    function calculateAge() {
+        const val = document.getElementById('birthdate1').value;
+        if (!val) return alert('برجاء اختيار تاريخ الميلاد');
+        const birth = new Date(val);
+        const now = new Date();
+        let diff = now - birth;
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let years = Math.floor(days / 365.25);
+        let months = Math.floor((days % 365.25) / 30.4375);
+        let remDays = Math.floor((days % 365.25) % 30.4375);
+        
+        const res = document.getElementById('result1');
+        res.style.display = 'block';
+        res.innerHTML = `عمرك هو: <strong>${years}</strong> سنة و <strong>${months}</strong> شهر و <strong>${remDays}</strong> يوم (إجمالي الأيام: ${days} يوم).`;
+    }
 
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
+    function compareAges() {
+        const d1 = document.getElementById('p1_date').value;
+        const d2 = document.getElementById('p2_date').value;
+        if (!d1 || !d2) return alert('برجاء اختيار التاريخين');
+        const date1 = new Date(d1);
+        const date2 = new Date(d2);
+        let diff = Math.abs(date1 - date2);
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let years = Math.floor(days / 365.25);
+        let months = Math.floor((days % 365.25) / 30.4375);
+        let remDays = Math.floor((days % 365.25) % 30.4375);
 
-            if (days < 0) {
-                months--;
-                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
+        const res = document.getElementById('result2');
+        res.style.display = 'block';
+        res.innerHTML = `الفرق الزمني بين العمرين هو: <strong>${years}</strong> سنة و <strong>${months}</strong> شهر و <strong>${remDays}</strong> يوم.`;
+    }
+</script>
 
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            const diffTime = Math.abs(today - birthDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            document.getElementById('resultBox1').style.display = 'block';
-            document.getElementById('resultText1').innerText = `${years} سنة | ${months} شهر | ${days} يوم`;
-            document.getElementById('totalDays1').innerText = `إجمالي الأيام: ${diffDays.toLocaleString()} يوم`;
-        }
-
-        // دالة حاسبة فرق العمر بين شخصين
-        function calculateAgeDiff() {
-            const d1 = parseInt(document.getElementById('dayA').value);
-            const m1 = parseInt(document.getElementById('monthA').value) - 1;
-            const y1 = parseInt(document.getElementById('yearA').value);
-
-            const d2 = parseInt(document.getElementById('dayB').value);
-            const m2 = parseInt(document.getElementById('monthB').value) - 1;
-            const y2 = parseInt(document.getElementById('yearB').value);
-
-            if (isNaN(d1) || isNaN(m1) || isNaN(y1) || isNaN(d2) || isNaN(m2) || isNaN(y2)) {
-                alert('الرجاء إدخال تواريخ الشخصين بشكل صحيح');
-                return;
-            }
-
-            let date1 = new Date(y1, m1, d1);
-            let date2 = new Date(y2, m2, d2);
-
-            let olderDate = date1 < date2 ? date1 : date2;
-            let youngerDate = date1 < date2 ? date2 : date1;
-
-            let years = youngerDate.getFullYear() - olderDate.getFullYear();
-            let months = youngerDate.getMonth() - olderDate.getMonth();
-            let days = youngerDate.getDate() - olderDate.getDate();
-
-            if (days < 0) {
-                months--;
-                const lastMonth = new Date(youngerDate.getFullYear(), youngerDate.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            const diffTime = Math.abs(youngerDate - olderDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            document.getElementById('resultBox2').style.display = 'block';
-            document.getElementById('resultText2').innerText = `${years} سنة | ${months} شهر | ${days} يوم`;
-            document.getElementById('totalDays2').innerText = `إجمالي الفرق بالأيام: ${diffDays.toLocaleString()} يوم`;
-        }
-    </script>
 </body>
 </html>
