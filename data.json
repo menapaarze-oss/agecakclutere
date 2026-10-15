@@ -9,28 +9,28 @@
   {
     "id": 2,
     "title": "AnyDesk_Toolkit",
-    "image": "AnyDesk.png",
+    "image": "images/AnyDesk.png",
     "description": "برنامج انى ديسك واداة تنظيفه من الجذور.",
     "downloader": "https://www.mediafire.com/file/95yt6yjvdollyez/AnyDesk_Toolkit.rar/file.com"
     },
     {
     "id": 3,
     "title": "ultraiso",
-    "image": "ultra iso.png",
+    "image": "images/ultra iso.png",
     "description": "برنامج الترا ايزو لفك وعمل الايزوهات وحرق الاسطوانات والاحتفاظ بالايزوهات ",
     "downloader": "https://www.mediafire.com/file/lexpt2lzsjeuvvx/By_Aparze.Net%25D9%2584%25D9%2584%25D8%25AA%25D8%25B9%25D8%25A7%25D9%2585%25D9%2584_%25D9%2585%25D8%25B9_%25D8%25A7%25D9%2584%25D8%25A7%25D9%258A%25D8%25B2%25D9%2588.rar/file"
     },
   {
     "id": 4,
     "title": "defender control",
-    "image": "defnderl control.webp",
+    "image": "images/defnderl control.webp",
     "description": "ايقاف انتى فايرس وتشغيله لويندوز 10 # 11 ",
     "downloader": "https://www.mediafire.com/file/7rcl5opz2bwv3n2/DefnderCntrol.1.7_By_Aparze.Net01226706313.rar/file"
     },
    {
     "id": 5,
     "title": "Directx 2017",
-    "image": "Directx 2017.jpg",
+    "image": "images/Directx 2017.jpg",
     "description": "ديركت اكس لتشغيل الالعاب والفيديوهات  ",
     "downloader": "https://www.mediafire.com/file/626rgj6ymhopw3e/DirectX_12-1-2017.rar/file"
     },
