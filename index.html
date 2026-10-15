@@ -106,7 +106,7 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
-            direction: ltr; /* لضمان كتابة اليوم ثم الشهر ثم السنة بشكل صحيح ومنتظم */
+            direction: rtl;
         }
 
         .input-group {
@@ -114,17 +114,16 @@
             flex-direction: column;
             align-items: center;
             flex: 1;
-            max-width: 110px;
+            max-width: 120px;
         }
 
         .input-group label {
             font-size: 0.85rem;
             color: var(--text-secondary);
             margin-bottom: 5px;
-            direction: rtl;
         }
 
-        .input-group input {
+        .input-group select, .input-group input {
             width: 100%;
             padding: 10px;
             background-color: #2a2a2a;
@@ -134,6 +133,12 @@
             text-align: center;
             font-size: 1rem;
             box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .input-group select option {
+            background-color: #1e1e1e;
+            color: #fff;
         }
 
         input[type=number]::-webkit-inner-spin-button, 
@@ -180,11 +185,12 @@
             font-size: 1.1rem;
         }
 
-        /* تنسيق الأرقام والكلمات بخط ثقيل وذهبي */
-        .result-box span {
+        /* تنسيق الخط الثقيل الذهبي للنتائج */
+        .result-box span.gold-text {
             color: var(--accent-color);
             font-weight: 900;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.3);
         }
 
         footer {
@@ -239,15 +245,15 @@
         <!-- حاسبة العمر -->
         <div class="calculator-card">
             <h2 class="calc-title">🎂 حاسبة العمر</h2>
-            <p class="calc-subtitle">اكتب تاريخ ميلادك (يوم / شهر / سنة) ثم اضغط احسب</p>
+            <p class="calc-subtitle">اختر اليوم والشهر واكتب السنة ثم اضغط احسب</p>
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <select id="day"></select>
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <select id="month"></select>
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
@@ -261,17 +267,17 @@
         <!-- حاسبة فرق العمر -->
         <div class="calculator-card">
             <h2 class="calc-title">⚖️ حاسبة فرق العمر</h2>
-            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهم</p>
+            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
             
             <div class="section-label">👤 الشخص الأول:</div>
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day1" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <select id="day1"></select>
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month1" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <select id="month1"></select>
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
@@ -283,11 +289,11 @@
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
-                    <input type="number" id="day2" placeholder="DD" min="1" max="31" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <select id="day2"></select>
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month2" placeholder="MM" min="1" max="12" maxlength="2" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);">
+                    <input type="number" id="month2"></select>
                 </div>
                 <div class="input-group">
                     <label>سنة</label>
@@ -306,15 +312,52 @@
     </footer>
 
     <script>
+        // تعبئة القوائم المنسدلة تلقائياً للأيام والشهور
+        function populateSelects() {
+            const daySelects = ['day', 'day1', 'day2'];
+            const monthSelects = ['month', 'month1', 'month2'];
+
+            daySelects.forEach(id => {
+                const el = document.getElementById(id);
+                el.innerHTML = '<option value="">اليوم</option>';
+                for (let i = 1; i <= 31; i++) {
+                    el.innerHTML += `<option value="${i}">${i}</option>`;
+                }
+            });
+
+            monthSelects.forEach(id => {
+                const el = document.getElementById(id);
+                el.innerHTML = '<option value="">الشهر</option>';
+                for (let i = 1; i <= 12; i++) {
+                    el.innerHTML += `<option value="${i}">${i}</option>`;
+                }
+            });
+        }
+
+        window.onload = populateSelects;
+
+        // دالة صياغة النص الذهبي المميز
+        function formatAgeText(years, months, days) {
+            let yText = years === 1 ? 'سنة واحدة' : (years === 2 ? 'سنتان' : (years >= 3 && years <= 10 ? `${years} سنوات` : `${years} سنة`));
+            let mText = months === 1 ? 'شهر واحد' : (months === 2 ? 'شهران' : (months >= 3 && months <= 10 ? `${months} شهور` : `${months} شهر`));
+            let dText = days === 1 ? 'يوم واحد' : (days === 2 ? 'يومان' : (days >= 3 && days <= 10 ? `${days} أيام` : `${days} يوم`));
+
+            if (years === 0) yText = '0 سنوات';
+            if (months === 0) mText = '0 أشهر';
+            if (days === 0) dText = '0 أيام';
+
+            return `<span class="gold-text">${yText} و ${mText} و ${dText}</span>`;
+        }
+
         function calculateAge() {
             const d = parseInt(document.getElementById('day').value);
             const m = parseInt(document.getElementById('month').value);
             const y = parseInt(document.getElementById('year').value);
             const resDiv = document.getElementById('ageResult');
 
-            if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
+            if (!d || !m || !y || y < 1900) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ صحيح (اليوم 1-31، الشهر 1-12)!';
+                resDiv.innerHTML = '⚠️ يرجى اختيار اليوم والشهر وكتابة السنة بشكل صحيح!';
                 return;
             }
 
@@ -343,19 +386,19 @@
             }
 
             resDiv.style.display = 'block';
+            const formattedResult = formatAgeText(years, months, days);
 
-            // التحقق مما إذا كان اليوم هو عيد ميلاده (نفس اليوم والشهر)
+            // عيد الميلاد الاحتفالي
             if (today.getDate() === d && (today.getMonth() + 1) === m) {
-                // تفعيل تفجير البالونات (القصاصات الملونة)
                 confetti({
-                    particleCount: 150,
-                    spread: 80,
+                    particleCount: 180,
+                    spread: 90,
                     origin: { y: 0.6 }
                 });
 
-                resDiv.innerHTML = `🎉 <b>كل سنة وأنت طيب! اليوم هو عيد ميلادك!</b> 🎉<br>عمرك الآن: <span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+                resDiv.innerHTML = `🎉 <b>كل سنة وأنت طيب! اليوم هو عيد ميلادك!</b> 🎉<br>عمرك الآن: ${formattedResult}`;
             } else {
-                resDiv.innerHTML = `🎉 عمرك الآن: <span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+                resDiv.innerHTML = `🎉 عمرك الآن: ${formattedResult}`;
             }
         }
 
@@ -370,9 +413,9 @@
 
             const resDiv = document.getElementById('diffResult');
 
-            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || m1 < 1 || m1 > 12 || m2 < 1 || m2 > 12 || d1 < 1 || d1 > 31 || d2 < 1 || d2 > 31) {
+            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || y1 < 1900 || y2 < 1900) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين (اليوم 1-31، الشهر 1-12)!';
+                resDiv.innerHTML = '⚠️ يرجى اختيار التواريخ وكتابة السنين للشخصين بشكل صحيح!';
                 return;
             }
 
@@ -382,7 +425,7 @@
             let diffTime = Math.abs(date2 - date1);
             let totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-            let older = date1 < date2 ? "الشخص الأول" : (date1 > date2 ? "الشخص الثاني" : "الشخصين ولدوا في نفس اليوم تماماً!");
+            let older = date1 < date2 ? "الشخص الأول" : (date1 > date2 ? "الشخص الثاني" : "الشخصان ولدا في نفس اليوم تماماً");
 
             let years = Math.floor(totalDays / 365.25);
             let remDays = totalDays % 365.25;
@@ -390,11 +433,12 @@
             let days = Math.floor(remDays % 30.4375);
 
             resDiv.style.display = 'block';
+            const formattedResult = formatAgeText(years, months, days);
 
             if (date1.getTime() === date2.getTime()) {
-                resDiv.innerHTML = `⚖️ التواريخ متطابقة تماماً!<br>الفرق بينهما: <span>0</span> سنوات، و <span>0</span> أشهر، و <span>0</span> أيام.`;
+                resDiv.innerHTML = `⚖️ التواريخ متطابقة تماماً!<br>الفرق بينهما: ${formattedResult}`;
             } else {
-                resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br><span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+                resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br>${formattedResult}`;
             }
         }
     </script>
