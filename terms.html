@@ -1,14 +1,161 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8"><title>شروط الاستخدام - ابرزى نت</title>
-    <style>body{font-family:sans-serif; padding:30px; line-height:1.8; max-width:800px; margin:auto;}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شروط الاستخدام - ابرزى نت</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --accent-hover: #e6b800;
+            --text-color: #ffffff;
+            --text-secondary: #aaa;
+            --border-color: #333333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-top: 25px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #e0e0e0;
+            font-size: 1.05rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: var(--accent-hover);
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 15px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>شروط الاستخدام</h1>
-    <p>باستخدامك لموقع ابرزى نت والأدوات المتاحة عليه، فإنك توافق على الالتزام بشروط الاستخدام هذه.</p>
-    <h2>إخلاء المسؤولية</h2>
-    <p>جميع البرامج والأدوات المتاحة على الموقع هي لأغراض خدمية واستخدام شخصي فقط، ويتم تقديمها كما هي دون أي ضمانات ضمنية.</p>
-    <a href="index.html">العودة للرئيسية</a>
+
+    <header>
+        <a href="index.html" class="logo">⚡ Aparze.Net</a>
+        <nav>
+            <a href="index.html">الرئيسية</a>
+            <a href="programs.html">قسم البرامج</a>
+            <a href="ads.html">عروض ابرزى نت</a>
+            <a href="about.html">عن الموقع والاتصال</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-card">
+            <h1>شروط الاستخدام</h1>
+            <p>باستخدامك لموقع <strong>ابرزى نت</strong> والأدوات المتاحة عليه، فإنك توافق تماماً على الالتزام بشروط الاستخدام واحترام سياسات الموقع.</p>
+            
+            <h2>إخلاء المسؤولية</h2>
+            <p>جميع البرامج والأدوات والمحتويات المتاحة على الموقع هي لأغراض خدمية واستخدام شخصي فقط، ويتم تقديمها كما هي دون أي ضمانات ضمنية بشأن التوافق المطلق مع كافة الأجهزة.</p>
+            
+            <a href="index.html" class="back-link">العودة للرئيسية 🏠</a>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت
+    </footer>
+
 </body>
 </html>
