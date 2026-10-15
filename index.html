@@ -303,7 +303,7 @@
 
             if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ صحيح (الشهر بين 1 و 12)!';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ صحيح (اليوم 1-31، الشهر 1-12)!';
                 return;
             }
 
@@ -346,9 +346,9 @@
 
             const resDiv = document.getElementById('diffResult');
 
-            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || m1 < 1 || m1 > 12 || m2 < 1 || m2 > 12) {
+            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || m1 < 1 || m1 > 12 || m2 < 1 || m2 > 12 || d1 < 1 || d1 > 31 || d2 < 1 || d2 > 31) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين (الشهر بين 1 و 12)!';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين (اليوم 1-31، الشهر 1-12)!';
                 return;
             }
 
