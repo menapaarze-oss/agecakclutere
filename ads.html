@@ -1,34 +1,277 @@
-<script>
-    fetch('ads.json')
-        .then(response => response.json())
-        .then(data => {
-            const container = document.getElementById('adsContainer');
-            container.innerHTML = '';
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عروض ابرزى نت - Aparze.Net</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --accent-hover: #e6b800;
+            --whatsapp-color: #25d366;
+            --whatsapp-hover: #1da851;
+            --text-color: #ffffff;
+            --text-secondary: #aaa;
+            --border-color: #333333;
+        }
 
-            data.forEach(ad => {
-                const card = document.createElement('div');
-                card.className = 'ad-card';
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-                // دعم المسميات الجديدة والقديمة وتأمين الروابط
-                const downloadUrl = ad.downloadUrl || '';
-                const whatsappUrl = ad.whatsappUrl || ad.linkUrl || '';
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-                card.innerHTML = `
-                    ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" class="ad-image" onerror="this.style.display='none'">` : ''}
-                    <div class="ad-content">
-                        <h2 class="ad-title">${ad.title}</h2>
-                        <p class="ad-desc">${ad.description}</p>
-                        <div class="buttons-group">
-                            ${downloadUrl ? `<a href="\${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-download">🎮 تحميل اللعبة الآن</a>` : ''}
-                            ${whatsappUrl ? `<a href="\${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">📲 تواصل عبر الواتساب</a>` : ''}
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .ads-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .ad-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ad-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            background-color: #0d0d0d;
+            display: block;
+        }
+
+        .ad-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ad-title {
+            color: var(--accent-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .ad-desc {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.7;
+            white-space: pre-line;
+            margin: 0;
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .btn-download {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: #fff;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-hover);
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 15px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+            nav {
+                justify-content: center;
+                width: 100%;
+            }
+            .buttons-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">⚡ Aparze.Net</a>
+        <nav>
+            <a href="index.html">الرئيسية</a>
+            <a href="programs.html">قسم البرامج</a>
+            <a href="ads.html" class="active">عروض ابرزى نت</a>
+            <a href="about.html">عن الموقع والاتصال</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="page-title">📢 عروض ومكافآت ابرزى نت</h1>
+        <p class="page-subtitle">تابع أحدث العروض والمسابقات والخدمات المميزة الحصرية.</p>
+
+        <div class="ads-container" id="adsContainer">
+            <!-- سيتم تعبئة البيانات تلقائياً -->
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت
+    </footer>
+
+    <script>
+        fetch('ads.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('adsContainer');
+                container.innerHTML = '';
+
+                data.forEach(ad => {
+                    const card = document.createElement('div');
+                    card.className = 'ad-card';
+
+                    // التأكد من استخراج الروابط سواء بالمسميات القديمة أو الجديدة
+                    let downloadUrl = (ad.downloadUrl || ad.linkText || '').trim();
+                    let whatsappUrl = (ad.whatsappUrl || ad.linkUrl || '').trim();
+
+                    // التأكد من أن الرابط يبدأ بـ http أو https
+                    if (downloadUrl && !downloadUrl.startsWith('http')) {
+                        downloadUrl = '';
+                    }
+                    if (whatsappUrl && !whatsappUrl.startsWith('http')) {
+                        whatsappUrl = '';
+                    }
+
+                    let buttonsHTML = '';
+                    if (downloadUrl) {
+                        buttonsHTML += `<a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-download">🎮 تحميل اللعبة الآن</a>`;
+                    }
+                    if (whatsappUrl) {
+                        buttonsHTML += `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">📲 تواصل عبر الواتساب</a>`;
+                    }
+
+                    card.innerHTML = `
+                        ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" class="ad-image" onerror="this.style.display='none'">` : ''}
+                        <div class="ad-content">
+                            <h2 class="ad-title">${ad.title}</h2>
+                            <p class="ad-desc">${ad.description}</p>
+                            ${buttonsHTML ? `<div class="buttons-group">\${buttonsHTML}</div>` : ''}
                         </div>
-                    </div>
-                `;
+                    `;
 
-                container.appendChild(card);
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('خطأ في جلب البيانات:', error);
             });
-        })
-        .catch(error => {
-            console.error('خطأ في جلب بيانات الإعلانات:', error);
-        });
-</script>
+    </script>
+</body>
+</html>
