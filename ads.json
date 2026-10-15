@@ -14,5 +14,13 @@
     "description": "أسعار شحن الألعاب من ابرزى نت بجميع الفئات بأسرع تنفيذ وأفضل سعر.",
     "downloadUrl": "",
     "whatsappUrl": "https://wa.me/201226706313"
+  },
+   {
+    "id": 3,
+    "title": "للتواصل معانا ",
+    "image": "images/aparze.jpg",
+    "description": "تواصل معانا عبر الواتس ساب والفيس بوك ",
+    "downloadUrl": "",
+    "whatsappUrl": "https://wa.me/201226706313"
   }
 ]
