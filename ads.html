@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عروض وإعلانات المحل - Aparze.Net</title>
+    <title>عروض المحل - Aparze.Net</title>
     <style>
         :root {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
             --accent-color: #ffcc00;
             --accent-hover: #e6b800;
+            --whatsapp-color: #25d366;
+            --whatsapp-hover: #1da851;
             --text-color: #ffffff;
             --text-secondary: #aaa;
             --border-color: #333333;
@@ -77,76 +79,95 @@
         .page-title {
             text-align: center;
             color: var(--accent-color);
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
-        .ads-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .ads-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
 
         .ad-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
-        .ad-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-        }
-
         .ad-image {
             width: 100%;
-            height: 200px;
+            max-height: 380px;
             object-fit: cover;
             background-color: #222;
         }
 
         .ad-content {
-            padding: 15px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            flex: 1;
+            gap: 12px;
         }
 
         .ad-title {
             color: var(--accent-color);
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
+            margin: 0;
+            font-size: 1.3rem;
         }
 
         .ad-desc {
             color: var(--text-color);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            flex: 1;
+            font-size: 1rem;
+            line-height: 1.7;
+            white-space: pre-line;
+            margin: 0;
         }
 
-        /* تنسيق زر الـ لينك تحت الصورة */
-        .ad-btn {
-            display: block;
-            background-color: var(--accent-color);
-            color: #000;
+        .buttons-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 200px;
             text-align: center;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 12px 15px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.95rem;
-            transition: background-color 0.3s ease;
-            margin-top: auto;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .ad-btn:hover {
+        .btn-download {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        .btn-download:hover {
             background-color: var(--accent-hover);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: #fff;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-hover);
         }
 
         footer {
@@ -168,6 +189,9 @@
                 justify-content: center;
                 width: 100%;
             }
+            .buttons-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -184,9 +208,11 @@
     </header>
 
     <main>
-        <h1 class="page-title">📢 أحدث العروض والخدمات المتاحة</h1>
-        <div class="ads-grid" id="adsContainer">
-            <!-- سيتم تحميل الإعلانات تلقائياً هنا -->
+        <h1 class="page-title">📢 عروض ومكافآت ابرازي نت</h1>
+        <p class="page-subtitle">تابع أحدث العروض والمسابقات والخدمات المميزة الحصرية.</p>
+
+        <div class="ads-container" id="adsContainer">
+            <!-- سيتم تحميل الإعلانات تلقائياً من ملف ads.json -->
         </div>
     </main>
 
@@ -195,7 +221,6 @@
     </footer>
 
     <script>
-        // قراءة الإعلانات والروابط من ملف ads.json وتوليدها تلقائياً
         fetch('ads.json')
             .then(response => response.json())
             .then(data => {
@@ -206,12 +231,18 @@
                     const card = document.createElement('div');
                     card.className = 'ad-card';
 
+                    const downloadUrl = ad.downloadUrl || ad.linkText || '#';
+                    const whatsappUrl = ad.whatsappUrl || ad.linkUrl || '#';
+
                     card.innerHTML = `
-                        ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" class="ad-image">` : ''}
+                        ${ad.image ? `<img src="${ad.image}" alt="${ad.title}" class="ad-image" onerror="this.style.display='none'">` : ''}
                         <div class="ad-content">
-                            <h3 class="ad-title">${ad.title}</h3>
+                            <h2 class="ad-title">${ad.title}</h2>
                             <p class="ad-desc">${ad.description}</p>
-                            ${ad.linkUrl ? `<a href="${ad.linkUrl}" target="_blank" class="ad-btn">${ad.linkText || 'رابط العرض'}</a>` : ''}
+                            <div class="buttons-group">
+                                ${downloadUrl !== '#' ? `<a href="\${downloadUrl}" target="_blank" class="btn btn-download">🎮 تحميل اللعبة الآن</a>` : ''}
+                                ${whatsappUrl !== '#' ? `<a href="\${whatsappUrl}" target="_blank" class="btn btn-whatsapp">📲 تواصل عبر الواتساب</a>` : ''}
+                            </div>
                         </div>
                     `;
 
@@ -219,7 +250,7 @@
                 });
             })
             .catch(error => {
-                console.error('خطأ في تحميل العروض:', error);
+                console.error('خطأ في جلب بيانات الإعلانات:', error);
             });
     </script>
 </body>
