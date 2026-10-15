@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة العمر - Aparze.Net</title>
+    <!-- مكتبة البالونات للاحتفال بأعياد الميلاد -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --bg-color: #121212;
@@ -104,7 +106,7 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
-            direction: rtl;
+            direction: ltr; /* لضمان كتابة اليوم ثم الشهر ثم السنة بشكل صحيح ومنتظم */
         }
 
         .input-group {
@@ -119,6 +121,7 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             margin-bottom: 5px;
+            direction: rtl;
         }
 
         .input-group input {
@@ -165,7 +168,7 @@
 
         .result-box {
             margin-top: 15px;
-            padding: 12px;
+            padding: 15px;
             background-color: #262626;
             border-radius: 8px;
             border-right: 4px solid var(--accent-color);
@@ -173,7 +176,15 @@
             font-weight: bold;
             text-align: center;
             display: none;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* تنسيق الأرقام والكلمات بخط ثقيل وذهبي */
+        .result-box span {
+            color: var(--accent-color);
+            font-weight: 900;
+            font-size: 1.25rem;
         }
 
         footer {
@@ -228,7 +239,7 @@
         <!-- حاسبة العمر -->
         <div class="calculator-card">
             <h2 class="calc-title">🎂 حاسبة العمر</h2>
-            <p class="calc-subtitle">اكتب تاريخ ميلادك ثم اضغط احسب</p>
+            <p class="calc-subtitle">اكتب تاريخ ميلادك (يوم / شهر / سنة) ثم اضغط احسب</p>
             <div class="inputs-row">
                 <div class="input-group">
                     <label>يوم</label>
@@ -250,7 +261,7 @@
         <!-- حاسبة فرق العمر -->
         <div class="calculator-card">
             <h2 class="calc-title">⚖️ حاسبة فرق العمر</h2>
-            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
+            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهم</p>
             
             <div class="section-label">👤 الشخص الأول:</div>
             <div class="inputs-row">
@@ -332,7 +343,20 @@
             }
 
             resDiv.style.display = 'block';
-            resDiv.innerHTML = `🎉 عمرك الآن: <span>${years}</span> سنة، و <span>${months}</span> شهر، و <span>${days}</span> يوم.`;
+
+            // التحقق مما إذا كان اليوم هو عيد ميلاده (نفس اليوم والشهر)
+            if (today.getDate() === d && (today.getMonth() + 1) === m) {
+                // تفعيل تفجير البالونات (القصاصات الملونة)
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+
+                resDiv.innerHTML = `🎉 <b>كل سنة وأنت طيب! اليوم هو عيد ميلادك!</b> 🎉<br>عمرك الآن: <span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+            } else {
+                resDiv.innerHTML = `🎉 عمرك الآن: <span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+            }
         }
 
         function calculateAgeDiff() {
@@ -358,7 +382,7 @@
             let diffTime = Math.abs(date2 - date1);
             let totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-            let older = date1 < date2 ? "الشخص الأول" : "الشخص الثاني";
+            let older = date1 < date2 ? "الشخص الأول" : (date1 > date2 ? "الشخص الثاني" : "الشخصين ولدوا في نفس اليوم تماماً!");
 
             let years = Math.floor(totalDays / 365.25);
             let remDays = totalDays % 365.25;
@@ -366,7 +390,12 @@
             let days = Math.floor(remDays % 30.4375);
 
             resDiv.style.display = 'block';
-            resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br><span>${years}</span> سنة، و <span>${months}</span> شهر، و <span>${days}</span> يوم.`;
+
+            if (date1.getTime() === date2.getTime()) {
+                resDiv.innerHTML = `⚖️ التواريخ متطابقة تماماً!<br>الفرق بينهما: <span>0</span> سنوات، و <span>0</span> أشهر، و <span>0</span> أيام.`;
+            } else {
+                resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br><span>${years}</span> سنوات، و <span>${months}</span> أشهر، و <span>${days}</span> أيام.`;
+            }
         }
     </script>
 </body>
