@@ -3,14 +3,14 @@
     "id": 1,
     "title": "برنامج USB Calc",
       "image": "https://raw.githubusercontent.com/menapaarze-oss/agecakclutere/refs/heads/main/icon.ico",
-    "description": "تطبيق لسطح المكتب لحساب وتوزيع أدوات USB بشكل احترافي.",
+    "description": "حساب كل التحميلات  USB بشكل احترافي.",
     "downloader": "https://www.mediafire.com/file/2f0b5i485w54wcq/%25D8%25AD%25D8%25B3%25D8%25A7%25D8%25A8_%25D8%25AC%25D9%258A%25D8%25AC%25D8%25A7%25D8%25AA_%25D8%25A7%25D9%2584%25D9%258A%25D9%2588_%25D8%25A7%25D8%25B3_%25D8%25A8%25D9%2589.rar/file"
   },
   {
     "id": 2,
-    "title": "System Cleaner",
-    "image": "https://via.placeholder.com/300x180/222222/ffcc00?text=System+Cleaner",
-    "description": "أداة خفيفة لتنظيف الملفات المؤقتة وتسريع أداء الكمبيوتر.",
-    "downloader": "https://www.mediafire.com"
+    "title": "AnyDesk_Toolkit",
+    "image": "AnyDesk.png",
+    "description": "برنامج انى ديسك واداة تنظيفه من الجذور.",
+    "downloader": "https://www.mediafire.com/file/95yt6yjvdollyez/AnyDesk_Toolkit.rar/file.com"
   }
 ]
