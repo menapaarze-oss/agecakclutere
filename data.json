@@ -2,15 +2,15 @@
   {
     "id": 1,
     "title": "برنامج USB Calc",
-    "image": "https://raw.githubusercontent.com/menapaarze-oss/agecakclutere/refs/heads/main/icon.ico",
+    "image": "https://raw.githubusercontent.com/menaparze-oss/agecalculatere/refs/heads/main/icon.ico",
     "description": "تطبيق لسطح المكتب لحساب وتوزيع أدوات USB بشكل احترافي.",
-    "downloadUrl": "https://www.mediafire.com/file/2f0b5i485w54wcq/حساب+جيجات+اليو+اس+بى.rar/file"
+    "downloader": "https://www.mediafire.com/file/2f0b5i485w54wcq/برنامج+حساب+جيجات+الأيواس+البى.rar/file"
   },
   {
     "id": 2,
-    "title": "أداة تنظيف وتسريع الجهاز",
+    "title": "System Cleaner",
     "image": "https://via.placeholder.com/300x180?text=System+Cleaner",
     "description": "أداة خفيفة لتنظيف الملفات المؤقتة وتسريع أداء الكمبيوتر.",
-    "downloadUrl": "https://www.mediafire.com"
+    "downloader": "https://www.mediafire.com"
   }
 ]
