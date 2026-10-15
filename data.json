@@ -103,5 +103,12 @@
     "image": "images/uninstalltool.png",
     "description": " برنامج حذف البرامج من جذورها ومن الريجيت ومن كالتمب وكل مكان بورتابل",
     "downloader": "https://www.mediafire.com/file/aq04641vw1zfazk/uninstalltool_portable_By_Aparze.Net.rar/file"
+    },
+   {
+    "id": 16,
+    "title": "winamp Clacic",
+    "image": "https://raw.githubusercontent.com/menapaarze-oss/agecakclutere/refs/heads/main/images/winamp.avif",
+    "description": " برنامج وين امب كلاسيك خفيف جدا بجوار تشغيل الالعاب او برامج الجرفيك والتصميم ",
+    "downloader": "https://www.mediafire.com/file/vgfvcctij7qneoi/winamp_By_Aparze.Net.rar/file"
     }
 ]
