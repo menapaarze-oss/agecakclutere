@@ -133,7 +133,6 @@
             box-sizing: border-box;
         }
 
-        /* إخفاء أزرار الزيادة والنقصان الافتراضية في حقول الأرقام */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
@@ -296,7 +295,6 @@
     </footer>
 
     <script>
-        // كود حساب العمر
         function calculateAge() {
             const d = parseInt(document.getElementById('day').value);
             const m = parseInt(document.getElementById('month').value);
@@ -305,7 +303,7 @@
 
             if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ ميلاد صحيح!';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تاريخ صحيح (الشهر بين 1 و 12)!';
                 return;
             }
 
@@ -337,7 +335,6 @@
             resDiv.innerHTML = `🎉 عمرك الآن: <span>${years}</span> سنة، و <span>${months}</span> شهر، و <span>${days}</span> يوم.`;
         }
 
-        // كود حساب فرق العمر بين شخصين
         function calculateAgeDiff() {
             const d1 = parseInt(document.getElementById('day1').value);
             const m1 = parseInt(document.getElementById('month1').value);
@@ -349,9 +346,9 @@
 
             const resDiv = document.getElementById('diffResult');
 
-            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2) {
+            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || m1 < 1 || m1 > 12 || m2 < 1 || m2 > 12) {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين!';
+                resDiv.innerHTML = '⚠️ يرجى إدخال تواريخ صحيحة للشخصين (الشهر بين 1 و 12)!';
                 return;
             }
 
