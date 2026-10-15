@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة العمر وفرق العمر - Aparze.Net</title>
+    <title>حاسبة العمر - Aparze.Net</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -26,7 +26,6 @@
             min-height: 100vh;
         }
 
-        /* هيدر عصري مع الشعار وقائمة التنقل */
         header {
             background-color: var(--card-bg);
             border-bottom: 2px solid var(--accent-color);
@@ -43,9 +42,6 @@
             font-weight: bold;
             color: var(--accent-color);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         nav {
@@ -69,112 +65,96 @@
             color: #000;
         }
 
-        /* الحاوية الرئيسية والتجاوب */
         main {
             flex: 1;
+            padding: 30px 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px 15px;
+            gap: 25px;
         }
 
-        .container {
+        .calculator-card {
             background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 25px;
-            box-sizing: border-box;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        h2 {
+        .calc-title {
+            text-align: center;
             color: var(--accent-color);
             margin-top: 0;
             font-size: 1.4rem;
         }
 
-        .section-title {
-            color: var(--accent-color);
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin: 15px 0 8px 0;
-            text-align: right;
+        .calc-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
 
-        /* خانات الإدخال والتسميات بالعربي */
-        .inputs {
+        .inputs-row {
             display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 10px;
-            direction: ltr; /* الترتيب يوم / شهر / سنة */
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            direction: ltr;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
+            align-items: center;
             flex: 1;
+            max-width: 100px;
         }
 
-        label {
+        .input-group label {
+            font-size: 0.8rem;
             color: var(--text-secondary);
             margin-bottom: 5px;
-            font-size: 0.85rem;
-            direction: rtl;
         }
 
-        input {
-            background-color: #222;
-            border: 1.5px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 5px;
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            background-color: #2a2a2a;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: #fff;
             text-align: center;
             font-size: 1rem;
-            border-radius: 6px;
-            outline: none;
-            width: 100%;
             box-sizing: border-box;
-            transition: border-color 0.3s;
         }
 
-        input:focus {
-            box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
-        }
-
-        .btn-calculate {
+        .btn-calc {
+            width: 100%;
+            padding: 12px;
             background-color: var(--accent-color);
             color: #000;
             border: none;
-            padding: 12px;
-            width: 100%;
-            font-size: 1.05rem;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            border-radius: 6px;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
         }
 
-        .btn-calculate:hover {
+        .btn-calc:hover {
             background-color: var(--accent-hover);
         }
 
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid var(--accent-color);
-            border-radius: 6px;
-            background-color: #111;
-        }
-
-        .results {
-            font-size: 1.1rem;
-            color: #00ffcc;
+        .section-label {
+            color: var(--accent-color);
             font-weight: bold;
+            margin-bottom: 8px;
+            text-align: right;
         }
 
         footer {
@@ -184,9 +164,23 @@
             padding: 15px;
             color: var(--text-secondary);
             font-size: 0.85rem;
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
         }
 
-        /* تعديلات الموبايل */
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 480px) {
             header {
                 justify-content: center;
@@ -196,202 +190,89 @@
                 justify-content: center;
                 width: 100%;
             }
-            .container {
-                padding: 18px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر واللوجو وقائمة التنقل -->
     <header>
-        <a href="index.html" class="logo">
-            ⚡ Aparze.Net
-<nav>
-    <a href="index.html">الرئيسية</a>
-    <a href="programs.html">قسم البرامج</a>
-    <a href="ads.html" class="active">عروض المحل</a>
-    <a href="about.html">عن الموقع والاتصال</a>
-</nav>
+        <a href="index.html" class="logo">⚡ Aparze.Net</a>
+        <nav>
+            <a href="index.html" class="active">الرئيسية</a>
+            <a href="programs.html">قسم البرامج</a>
+            <a href="ads.html">عروض ابرزى نت</a>
+            <a href="about.html">عن الموقع والاتصال</a>
+        </nav>
     </header>
 
     <main>
-        <!-- 1. القسم الأول: حاسبة العمر الفردية -->
-        <div class="container">
-            <h2>🎂 حاسبة العمر</h2>
-            <p style="font-size: 12px; color: var(--text-secondary);">اكتب تاريخ ميلادك ثم اضغط احسب</p>
-            
-            <div class="inputs">
+        <!-- حاسبة العمر -->
+        <div class="calculator-card">
+            <h2 class="calc-title">🎂 حاسبة العمر</h2>
+            <p class="calc-subtitle">اكتب تاريخ ميلادك ثم اضغط احسب</p>
+            <div class="inputs-row">
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" id="day1" placeholder="DD" min="1" max="31" oninput="validateInput(this, 31, 2)">
+                    <label>سنة</label>
+                    <input type="number" placeholder="YYYY">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="month1" placeholder="MM" min="1" max="12" oninput="validateInput(this, 12, 2)">
+                    <input type="number" placeholder="MM">
                 </div>
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026" oninput="validateInput(this, 2026, 4)">
+                    <label>يوم</label>
+                    <input type="number" placeholder="DD">
                 </div>
             </div>
-
-            <button class="btn-calculate" onclick="calculateAge()">احسب العمر 🎯</button>
-
-            <div class="result-box" id="resultBox1" style="display:none;">
-                <div class="results" id="resultText1"></div>
-                <p id="totalDays1" style="color: var(--accent-color); margin-top: 10px; font-size: 14px;"></p>
-            </div>
+            <button class="btn-calc">🎯 احسب العمر</button>
         </div>
 
-        <!-- 2. القسم الثاني: حاسبة فرق العمر بين شخصين -->
-        <div class="container">
-            <h2>⚖️ حاسبة فرق العمر</h2>
-            <p style="font-size: 12px; color: var(--text-secondary);">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
+        <!-- حاسبة فرق العمر -->
+        <div class="calculator-card">
+            <h2 class="calc-title">⚖️ حاسبة فرق العمر</h2>
+            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
             
-            <div class="section-title">👤 الشخص الأول:</div>
-            <div class="inputs">
+            <div class="section-label">👤 الشخص الأول:</div>
+            <div class="inputs-row">
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" id="dayA" placeholder="DD" min="1" max="31" oninput="validateInput(this, 31, 2)">
+                    <label>سنة</label>
+                    <input type="number" placeholder="YYYY">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="monthA" placeholder="MM" min="1" max="12" oninput="validateInput(this, 12, 2)">
+                    <input type="number" placeholder="MM">
                 </div>
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="yearA" placeholder="YYYY" min="1900" max="2026" oninput="validateInput(this, 2026, 4)">
+                    <label>يوم</label>
+                    <input type="number" placeholder="DD">
                 </div>
             </div>
 
-            <div class="section-title">👤 الشخص الثاني:</div>
-            <div class="inputs">
+            <div class="section-label">👤 الشخص الثاني:</div>
+            <div class="inputs-row">
                 <div class="input-group">
-                    <label>يوم</label>
-                    <input type="number" id="dayB" placeholder="DD" min="1" max="31" oninput="validateInput(this, 31, 2)">
+                    <label>سنة</label>
+                    <input type="number" placeholder="YYYY">
                 </div>
                 <div class="input-group">
                     <label>شهر</label>
-                    <input type="number" id="monthB" placeholder="MM" min="1" max="12" oninput="validateInput(this, 12, 2)">
+                    <input type="number" placeholder="MM">
                 </div>
                 <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="yearB" placeholder="YYYY" min="1900" max="2026" oninput="validateInput(this, 2026, 4)">
+                    <label>يوم</label>
+                    <input type="number" placeholder="DD">
                 </div>
             </div>
 
-            <button class="btn-calculate" onclick="calculateAgeDiff()">احسب فرق العمر 🎯</button>
-
-            <div class="result-box" id="resultBox2" style="display:none;">
-                <p style="color: var(--text-secondary); margin: 0 0 5px 0; font-size: 13px;">فرق العمر هو:</p>
-                <div class="results" id="resultText2"></div>
-                <p id="totalDays2" style="color: var(--accent-color); margin-top: 10px; font-size: 14px; font-weight: bold;"></p>
-            </div>
+            <button class="btn-calc">🎯 احسب فرق العمر</button>
         </div>
     </main>
 
+    <!-- الـ Footer المحدث مع رابط شروط الاستخدام واسم ابرزى نت الصحيح -->
     <footer>
-        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرازي نت
+        <div>&copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت</div>
+        <div><a href="terms.html">📌 شروط الاستخدام وسياسة الموقع</a></div>
     </footer>
 
-    <script>
-        // التحقق من طول الخانات والحد الأقصى أثناء الكتابة
-        function validateInput(input, maxVal, maxLen) {
-            if (input.value.length > maxLen) {
-                input.value = input.value.slice(0, maxLen);
-            }
-            if (parseInt(input.value) > maxVal) {
-                input.value = maxVal;
-            }
-        }
-
-        // دالة حاسبة العمر الفردية
-        function calculateAge() {
-            const d = parseInt(document.getElementById('day1').value);
-            const m = parseInt(document.getElementById('month1').value) - 1;
-            const y = parseInt(document.getElementById('year1').value);
-
-            if (isNaN(d) || isNaN(m) || isNaN(y) || d < 1 || m < 0 || m > 11 || y < 1900) {
-                alert('الرجاء إدخال تاريخ الميلاد بشكل صحيح');
-                return;
-            }
-
-            const birthDate = new Date(y, m, d);
-            const today = new Date();
-
-            if (birthDate > today) {
-                alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل');
-                return;
-            }
-
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-
-            if (days < 0) {
-                months--;
-                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            const diffTime = Math.abs(today - birthDate);
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            document.getElementById('resultBox1').style.display = 'block';
-            document.getElementById('resultText1').innerText = `${years} سنة | ${months} شهر | ${days} يوم`;
-            document.getElementById('totalDays1').innerText = `إجمالي الأيام: ${diffDays.toLocaleString()} يوم`;
-        }
-
-        // دالة حاسبة فرق العمر بين شخصين
-        function calculateAgeDiff() {
-            const d1 = parseInt(document.getElementById('dayA').value);
-            const m1 = parseInt(document.getElementById('monthA').value) - 1;
-            const y1 = parseInt(document.getElementById('yearA').value);
-
-            const d2 = parseInt(document.getElementById('dayB').value);
-            const m2 = parseInt(document.getElementById('monthB').value) - 1;
-            const y2 = parseInt(document.getElementById('yearB').value);
-
-            if (isNaN(d1) || isNaN(m1) || isNaN(y1) || isNaN(d2) || isNaN(m2) || isNaN(y2)) {
-                alert('الرجاء إدخال تواريخ الشخصين بشكل صحيح');
-                return;
-            }
-
-            let date1 = new Date(y1, m1, d1);
-            let date2 = new Date(y2, m2, d2);
-
-            let olderDate = date1 < date2 ? date1 : date2;
-            let youngerDate = date1 < date2 ? date2 : date1;
-
-            let years = youngerDate.getFullYear() - olderDate.getFullYear();
-            let months = youngerDate.getMonth() - olderDate.getMonth();
-            let days = youngerDate.getDate() - olderDate.getDate();
-
-            if (days < 0) {
-                months--;
-                const lastMonth = new Date(youngerDate.getFullYear(), youngerDate.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            const diffTime = Math.abs(youngerDate - olderDate);
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            document.getElementById('resultBox2').style.display = 'block';
-            document.getElementById('resultText2').innerText = `${years} سنة | ${months} شهر | ${days} يوم`;
-            document.getElementById('totalDays2').innerText = `إجمالي الفرق بالأيام: ${diffDays.toLocaleString()} يوم`;
-        }
-    </script>
 </body>
 </html>
