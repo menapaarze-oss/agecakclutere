@@ -68,5 +68,12 @@
     "image": "images/Hard Disk Sentinel.png",
     "description": "برنامج يوضح لك صحة وحالة الهارد ديسك بورتابل ولكن الكراك يتطلب منك الغاء الانتى فايرس",
     "downloader": "https://www.mediafire.com/file/u36lchggna7s3y1/Hard_Disk_Sentinel_Pro_5.30_Build_9417_Portable_By_Aparze.Net.rar/file"
+    },
+  {
+    "id": 11,
+    "title": "MiniTool Partition Wizard",
+    "image": "images/MiniTool Partition Wizard.png",
+    "description": "برنامج تقسم الهارد وتحويله من امبى ار الى جيبتى بورتابل ",
+    "downloader": "https://www.mediafire.com/file/nidwgl7iis6lk57/MiniTool_Partition_Wizard_Portable_By_Aparze.Net.rar/file"
     }
 ]
