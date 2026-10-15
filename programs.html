@@ -83,8 +83,45 @@
         .page-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 0.95rem;
+        }
+
+        /* تنسيق مربع البحث */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 40px;
+            display: none;
         }
 
         .programs-grid {
@@ -192,8 +229,17 @@
         <h1 class="page-title">📦 مكتبة البرامج والأدوات المباشرة</h1>
         <p class="page-subtitle">تحميل مباشر لأحدث البرامج والأدوات الخدمية من ابرازي نت عبر سرعة فائقة.</p>
         
+        <!-- مربع البحث -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 ابحث باسم البرنامج أو الوصف (عربي / English)...">
+        </div>
+
         <div class="programs-grid" id="programsContainer">
             <!-- سيتم جلب البرامج وتعبئتها تلقائياً من ملف data.json -->
+        </div>
+
+        <div id="noResults" class="no-results">
+            ❌ لا توجد برامج تطابق بحثك حالياً.
         </div>
     </main>
 
@@ -202,34 +248,65 @@
     </footer>
 
     <script>
-        // قراءة البرامج من ملف data.json وعرضها بشكل منظم ومضمون
+        let allPrograms = [];
+
+        // دالة لعرض البرامج داخل الصفحة
+        function renderPrograms(programs) {
+            const container = document.getElementById('programsContainer');
+            const noResults = document.getElementById('noResults');
+            container.innerHTML = '';
+
+            if (programs.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            } else {
+                noResults.style.display = 'none';
+            }
+
+            programs.forEach(prog => {
+                const card = document.createElement('div');
+                card.className = 'program-card';
+
+                const downloadLink = prog.downloader ? prog.downloader : '#';
+
+                card.innerHTML = `
+                    ${prog.image ? `<img src="${prog.image}" alt="${prog.title}" class="program-image">` : ''}
+                    <div class="program-content">
+                        <h3 class="program-title">${prog.title}</h3>
+                        <p class="program-desc">${prog.description}</p>
+                        <a href="${downloadLink}" target="_blank" class="download-btn">تحميل عبر MediaFire 📥</a>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // قراءة البرامج من ملف data.json
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
-                const container = document.getElementById('programsContainer');
-                container.innerHTML = '';
-
-                data.forEach(prog => {
-                    const card = document.createElement('div');
-                    card.className = 'program-card';
-
-                    const downloadLink = prog.downloader ? prog.downloader : '#';
-
-                    card.innerHTML = `
-                        ${prog.image ? `<img src="${prog.image}" alt="${prog.title}" class="program-image">` : ''}
-                        <div class="program-content">
-                            <h3 class="program-title">${prog.title}</h3>
-                            <p class="program-desc">${prog.description}</p>
-                            <a href="${downloadLink}" target="_blank" class="download-btn">تحميل عبر MediaFire 📥</a>
-                        </div>
-                    `;
-
-                    container.appendChild(card);
-                });
+                allPrograms = data;
+                renderPrograms(allPrograms);
             })
             .catch(error => {
                 console.error('خطأ في تحميل بيانات البرامج:', error);
             });
+
+        // البرمجة الخاصة بالبحث المباشر عند الكتابة
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+
+            const filteredPrograms = allPrograms.filter(prog => {
+                const title = (prog.title || '').toLowerCase();
+                const description = (prog.description || '').toLowerCase();
+
+                // البحث سواء في عنوان البرنامج أو في وصفه باللغتين
+                return title.includes(searchTerm) || description.includes(searchTerm);
+            });
+
+            renderPrograms(filteredPrograms);
+        });
     </script>
 </body>
 </html>
