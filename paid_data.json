@@ -19,5 +19,12 @@
     "price": "500 جنيه",
     "image": "images/gamemenu.png",
     "link": "https://wa.me/201226706313"
+  },
+    {
+    "title": "Print Barcod ",
+    "description": "أداة احترافية لطباعة باركود باسم مصنعك بالعدد والمقاس التى تريده بدون برامج    .",
+    "price": "300 جنيه",
+    "image": "images/barcod.png",
+    "link": "https://wa.me/201226706313"
   }
 ]
