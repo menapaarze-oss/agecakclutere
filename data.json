@@ -187,5 +187,12 @@
     "image": "images/qqplayer.jpg",
     "description": "نسخة قديمة رائعة وخفيفة جدا",
     "downloader": "https://www.mediafire.com/file/sqdjiirh0m9p290/QQPlayer_Setup3.9.936.rar/file"
+    },
+  {
+    "id": 28,
+    "title": "mp3tag",
+    "image": "images/mp3tag.webp",
+    "description": "برنامج تغير شكل ملفات الصوت والفيديو باللوجو بتاعك لينك الموقع الاصلى للبرنامج عشان التحديث الدائم تنزل اخر اصدار من الموقع الرسمى ",
+    "downloader": "https://www.mp3tag.de/en/download.html"
     }
  ]
