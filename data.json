@@ -145,5 +145,12 @@
     "image": "images/ccboot.jpeg",
     "description": "البرنامج الشهير والغنى عن التعريف لادارة السيبرات بدون هاردات وجعلها تشتغل من السرفر  ",
     "downloader": "https://www.mediafire.com/file/koz02pl39pea62s/ccboot_0823.rar/file"
+    },
+  {
+    "id": 22,
+    "title": "disk2vhd_portable",
+    "image": "images/disk2vhd_portable.png",
+    "description": "برنامج سحب ايمدج الويندوز لكل برامج الديسكيلز يوفى ولجيسى فى نفس الايمدج ",
+    "downloader": "https://www.mediafire.com/file/rf7q92txgtdjcx1/disk2vhd_portable.rar/file"
     }
  ]
