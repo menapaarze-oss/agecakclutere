@@ -1,0 +1,16 @@
+[
+  {
+    "title": "برنامج USB Calc",
+    "description": "تطبيق واجهة داكنة (CustomTkinter) لإدارة وتنظيم الأجهزة مع نظام ترخيص برقم الجهاز HWID وقاعدة بيانات متكاملة.",
+    "price": "150 جنيه",
+    "image": "images/usbcalc.png",
+    "link": "https://wa.me/20XXXXXXXXXX"
+  },
+  {
+    "title": "أداة إدارة الشبكات والصيانة",
+    "description": "أداة احترافية للتحكم بالشبكات والأجهزة والأوامر السريعة للسيرفرات وإدارة الصيانة بسهولة.",
+    "price": "250 جنيه",
+    "image": "images/network.png",
+    "link": "https://wa.me/20XXXXXXXXXX"
+  }
+]

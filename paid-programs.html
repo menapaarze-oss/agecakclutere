@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>البرامج المدفوعة - Aparze.Net</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --accent-color: #007bff;
+      --text-color: #ffffff;
+      --border-color: #333333;
+      --price-color: #28a745;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 25px;
+    }
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    nav a:hover, nav a.active {
+      color: var(--accent-color);
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-bottom: 25px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #2a2a2a;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      color: var(--accent-color);
+    }
+    .card p {
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .price-tag {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--price-color);
+      margin-bottom: 15px;
+      background: rgba(40, 167, 69, 0.1);
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .btn {
+      background: var(--accent-color);
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      display: block;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Aparze.Net</h1>
+    <nav>
+      <a href="index.html">حاسبة العمر</a>
+      <a href="programs.html">البرامج المجانية</a>
+      <a href="paid-programs.html" class="active">البرامج المدفوعة</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>البرامج المدفوعة</h2>
+    
+    <div id="programsGrid" class="grid">
+      <div class="loading">جاري تحميل البرامج المدفوعة...</div>
+    </div>
+  </div>
+
+  <script>
+    fetch('paid_data.json')
+      .then(response => response.json())
+      .then(data => {
+        const grid = document.getElementById('programsGrid');
+        grid.innerHTML = ''; // تفريغ رسالة التحميل
+
+        data.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          card.innerHTML = `
+            <div>
+              <img src="${item.image || 'images/default.png'}" alt="${item.title}">
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+            </div>
+            <div>
+              <div class="price-tag">السعر: ${item.price}</div>
+              <a href="${item.link}" class="btn" target="_blank">اطلب البرنامج الآن</a>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error('خطأ في تحميل البيانات:', error);
+        document.getElementById('programsGrid').innerHTML = '<div class="loading">عذراً، حدث خطأ أثناء تحميل البرامج.</div>';
+      });
+  </script>
+
+</body>
+</html>
