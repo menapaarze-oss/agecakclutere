@@ -1,445 +1,186 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- كود التحقق الخاص بـ Adsterra -->
-    <meta name="f49c7eae45fb5b0f4ddd010607237d76d627e972" content="f49c7eae45fb5b0f4ddd010607237d76d627e972" />
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة العمر - Aparze.Net</title>
-    <!-- مكتبة البالونات للاحتفال بأعياد الميلاد -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --accent-color: #ffcc00;
-            --accent-hover: #e6b800;
-            --text-color: #ffffff;
-            --text-secondary: #aaa;
-            --border-color: #333333;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 2px solid var(--accent-color);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        nav {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover, nav a.active {
-            background-color: var(--accent-color);
-            color: #000;
-        }
-
-        main {
-            flex: 1;
-            padding: 30px 15px;
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .calculator-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        .calc-title {
-            text-align: center;
-            color: var(--accent-color);
-            margin-top: 0;
-            font-size: 1.4rem;
-        }
-
-        .calc-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-        }
-
-        .inputs-row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-            direction: rtl;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            max-width: 120px;
-        }
-
-        .input-group label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .input-group select, .input-group input {
-            width: 100%;
-            padding: 10px;
-            background-color: #2a2a2a;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            color: #fff;
-            text-align: center;
-            font-size: 1rem;
-            box-sizing: border-box;
-            cursor: pointer;
-        }
-
-        .input-group select option {
-            background-color: #1e1e1e;
-            color: #fff;
-        }
-
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-
-        .btn-calc {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .btn-calc:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .section-label {
-            color: var(--accent-color);
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-align: right;
-        }
-
-        .result-box {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #262626;
-            border-radius: 8px;
-            border-right: 4px solid var(--accent-color);
-            color: #fff;
-            font-weight: bold;
-            text-align: center;
-            display: none;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        .result-box span.gold-text {
-            color: var(--accent-color);
-            font-weight: 900;
-            font-size: 1.3rem;
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.3);
-        }
-
-        footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 15px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-        }
-
-        footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            header {
-                justify-content: center;
-                text-align: center;
-            }
-            nav {
-                justify-content: center;
-                width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حاسبة العمر - Aparze.Net</title>
+  <!-- مكتبة الاحتفال بالبالونات -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --accent-color: #007bff;
+      --text-color: #ffffff;
+      --border-color: #333333;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 25px;
+    }
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    nav a:hover, nav a.active {
+      color: var(--accent-color);
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    h2 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-top: 0;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: #2a2a2a;
+      color: #fff;
+      box-sizing: border-box;
+    }
+    button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #252525;
+      border-radius: 8px;
+      border-right: 4px solid var(--accent-color);
+    }
+    .result p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="logo">⚡ Aparze.Net</a>
-        <nav>
-            <a href="index.html" class="active">الرئيسية</a>
-            <a href="programs.html">قسم البرامج</a>
-            <a href="ads.html">عروض ابرزى نت</a>
-            <a href="about.html">عن الموقع والاتصال</a>
-        </nav>
-    </header>
+  <header>
+    <h1>Aparze.Net</h1>
+    <nav>
+      <a href="index.html" class="active">حاسبة العمر</a>
+      <a href="programs.html">البرامج المجانية</a>
+      <a href="paid-programs.html">البرامج المدفوعة</a>
+    </nav>
+  </header>
 
-    <main>
-        <!-- حاسبة العمر -->
-        <div class="calculator-card">
-            <h2 class="calc-title">🎂 حاسبة العمر</h2>
-            <p class="calc-subtitle">اختر اليوم والشهر واكتب السنة ثم اضغط احسب</p>
-            <div class="inputs-row">
-                <div class="input-group">
-                    <label>يوم</label>
-                    <select id="day"></select>
-                </div>
-                <div class="input-group">
-                    <label>شهر</label>
-                    <select id="month"></select>
-                </div>
-                <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="year" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-                </div>
-            </div>
-            <button class="btn-calc" onclick="calculateAge()">🎯 احسب العمر</button>
-            <div id="ageResult" class="result-box"></div>
-        </div>
+  <div class="container">
+    <h2>حساب العمر الدقيق</h2>
+    <div class="form-group">
+      <label for="birthdate">تاريخ الميلاد:</label>
+      <input type="date" id="birthdate">
+    </div>
+    <button onclick="calculateAge()">احسب العمر</button>
 
-        <!-- حاسبة فرق العمر -->
-        <div class="calculator-card">
-            <h2 class="calc-title">⚖️ حاسبة فرق العمر</h2>
-            <p class="calc-subtitle">أدخل تاريخ ميلاد الفردين لمعرفة الفرق بينهما</p>
-            
-            <div class="section-label">👤 الشخص الأول:</div>
-            <div class="inputs-row">
-                <div class="input-group">
-                    <label>يوم</label>
-                    <select id="day1"></select>
-                </div>
-                <div class="input-group">
-                    <label>شهر</label>
-                    <select id="month1"></select>
-                </div>
-                <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="year1" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-                </div>
-            </div>
+    <div class="result" id="resultBox" style="display: none;">
+      <p><strong>العمر التفصيلي:</strong> <span id="ageText"></span></p>
+      <p><strong>إجمالي الأيام:</strong> <span id="totalDaysText"></span> يوم</p>
+      <p><strong>الفرق لعيد الميلاد القادم:</strong> <span id="diffDaysText"></span></p>
+    </div>
+  </div>
 
-            <div class="section-label">👤 الشخص الثاني:</div>
-            <div class="inputs-row">
-                <div class="input-group">
-                    <label>يوم</label>
-                    <select id="day2"></select>
-                </div>
-                <div class="input-group">
-                    <label>شهر</label>
-                    <select id="month2"></select>
-                </div>
-                <div class="input-group">
-                    <label>سنة</label>
-                    <input type="number" id="year2" placeholder="YYYY" min="1900" max="2026" maxlength="4" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-                </div>
-            </div>
+  <script>
+    function calculateAge() {
+      const birthdateInput = document.getElementById('birthdate').value;
+      if (!birthdateInput) {
+        alert('الرجاء إدخال تاريخ الميلاد!');
+        return;
+      }
 
-            <button class="btn-calc" onclick="calculateAgeDiff()">🎯 احسب فرق العمر</button>
-            <div id="diffResult" class="result-box"></div>
-        </div>
-    </main>
+      const birthDate = new Date(birthdateInput);
+      const today = new Date();
 
-    <footer>
-        <div>&copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت</div>
-        <div><a href="terms.html">📌 شروط الاستخدام وسياسة الموقع</a></div>
-    </footer>
+      if (birthDate > today) {
+        alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل!');
+        return;
+      }
 
-    <script>
-        function populateSelects() {
-            const daySelects = ['day', 'day1', 'day2'];
-            const monthSelects = ['month', 'month1', 'month2'];
+      // حساب السنوات والأشهر والأيام
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
 
-            daySelects.forEach(id => {
-                const el = document.getElementById(id);
-                el.innerHTML = '<option value="">اليوم</option>';
-                for (let i = 1; i <= 31; i++) {
-                    el.innerHTML += `<option value="${i}">${i}</option>`;
-                }
-            });
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
 
-            monthSelects.forEach(id => {
-                const el = document.getElementById(id);
-                el.innerHTML = '<option value="">الشهر</option>';
-                for (let i = 1; i <= 12; i++) {
-                    el.innerHTML += `<option value="${i}">${i}</option>`;
-                }
-            });
-        }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
 
-        window.onload = populateSelects;
+      // حساب إجمالي الأيام
+      const diffTime = Math.abs(today - birthDate);
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-        function formatAgeText(years, months, days) {
-            let yText = years === 1 ? 'سنة واحدة' : (years === 2 ? 'سنتان' : (years >= 3 && years <= 10 ? `${years} سنوات` : `${years} سنة`));
-            let mText = months === 1 ? 'شهر واحد' : (months === 2 ? 'شهران' : (months >= 3 && months <= 10 ? `${months} شهور` : `${months} شهر`));
-            let dText = days === 1 ? 'يوم واحد' : (days === 2 ? 'يومان' : (days >= 3 && days <= 10 ? `${days} أيام` : `${days} يوم`));
+      // حساب الأيام المتبقية لعيد الميلاد القادم
+      let nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+      if (nextBirthday < today) {
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+      }
+      const diffNextBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
 
-            if (years === 0) yText = '0 سنوات';
-            if (months === 0) mText = '0 أشهر';
-            if (days === 0) dText = '0 أيام';
+      // عرض النتائج في العناصر
+      document.getElementById('ageText').innerText = `${years} سنة و ${months} شهر و ${days} يوم`;
+      document.getElementById('totalDaysText').innerText = totalDays.toLocaleString('ar-EG');
+      document.getElementById('diffDaysText').innerText = `${diffNextBirthday} يوم متبقي لعيد ميلادك القادم`;
+      
+      document.getElementById('resultBox').style.display = 'block';
 
-            return `<span class="gold-text">${yText} و ${mText} و ${dText}</span>`;
-        }
+      // إطلاق البالونات عند الحساب الناجح
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+  </script>
 
-        function calculateAge() {
-            const d = parseInt(document.getElementById('day').value);
-            const m = parseInt(document.getElementById('month').value);
-            const y = parseInt(document.getElementById('year').value);
-            const resDiv = document.getElementById('ageResult');
-
-            if (!d || !m || !y || y < 1900) {
-                resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى اختيار اليوم والشهر وكتابة السنة بشكل صحيح!';
-                return;
-            }
-
-            const birthDate = new Date(y, m - 1, d);
-            const today = new Date();
-
-            if (birthDate > today) {
-                resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ تاريخ الميلاد لا يمكن أن يكون في المستقبل!';
-                return;
-            }
-
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-
-            if (days < 0) {
-                months--;
-                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            resDiv.style.display = 'block';
-            const formattedResult = formatAgeText(years, months, days);
-
-            if (today.getDate() === d && (today.getMonth() + 1) === m) {
-                confetti({
-                    particleCount: 180,
-                    spread: 90,
-                    origin: { y: 0.6 }
-                });
-
-                resDiv.innerHTML = `🎉 <b>كل سنة وأنت طيب! اليوم هو عيد ميلادك!</b> 🎉<br>عمرك الآن: ${formattedResult}`;
-            } else {
-                resDiv.innerHTML = `🎉 عمرك الآن: ${formattedResult}`;
-            }
-        }
-
-        function calculateAgeDiff() {
-            const d1 = parseInt(document.getElementById('day1').value);
-            const m1 = parseInt(document.getElementById('month1').value);
-            const y1 = parseInt(document.getElementById('year1').value);
-
-            const d2 = parseInt(document.getElementById('day2').value);
-            const m2 = parseInt(document.getElementById('month2').value);
-            const y2 = parseInt(document.getElementById('year2').value);
-
-            const resDiv = document.getElementById('diffResult');
-
-            if (!d1 || !m1 || !y1 || !d2 || !m2 || !y2 || y1 < 1900 || y2 < 1900) {
-                resDiv.style.display = 'block';
-                resDiv.innerHTML = '⚠️ يرجى اختيار التواريخ وكتابة السنين للشخصين بشكل صحيح!';
-                return;
-            }
-
-            let date1 = new Date(y1, m1 - 1, d1);
-            let date2 = new Date(y2, m2 - 1, d2);
-
-            let diffTime = Math.abs(date2 - date1);
-            let totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            let older = date1 < date2 ? "الشخص الأول" : (date1 > date2 ? "الشخص الثاني" : "الشخصان ولدا في نفس اليوم تماماً");
-
-            let years = Math.floor(totalDays / 365.25);
-            let remDays = totalDays % 365.25;
-            let months = Math.floor(remDays / 30.4375);
-            let days = Math.floor(remDays % 30.4375);
-
-            resDiv.style.display = 'block';
-            const formattedResult = formatAgeText(years, months, days);
-
-            if (date1.getTime() === date2.getTime()) {
-                resDiv.innerHTML = `⚖️ التواريخ متطابقة تماماً!<br>الفرق بينهما: ${formattedResult}`;
-            } else {
-                resDiv.innerHTML = `⚖️ ${older} أكبر من الآخر بـ: <br>${formattedResult}`;
-            }
-        }
-    </script>
 </body>
 </html>
