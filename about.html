@@ -1,9 +1,14 @@
+تتمةً لطلبك، قمت بتحديث ملف **`about.html`** بالكامل (والذي أرسلته في الكود الأخير) لكي يحتوي على **جميع القوائم العلوية الموحدة** (الرئيسية، قسم البرامج، البرامج المدفوعة، عروض ابرزى نت، عن الموقع والاتصال) بالإضافة إلى **الفوتر السفلي المحدث** الذي يضم روابط "عن الموقع والاتصال" و"التعليمات والشروط" بنفس الثيم الاحترافي والمميز لموقعك.
+
+إليك الكود الكامل والمحدث لملف **`about.html`**:
+
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عن الموقع والاتصال - Aparze.Net</title>
+    <title>عن الموقع والاتصال - ابرزى نت</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -50,7 +55,7 @@
 
         nav {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -176,8 +181,19 @@
             text-align: center;
             padding: 15px;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 480px) {
@@ -202,6 +218,7 @@
         <nav>
             <a href="index.html">الرئيسية</a>
             <a href="programs.html">قسم البرامج</a>
+            <a href="paid-programs.html">البرامج المدفوعة</a>
             <a href="ads.html">عروض ابرزى نت</a>
             <a href="about.html" class="active">عن الموقع والاتصال</a>
         </nav>
@@ -245,7 +262,14 @@
 
     <footer>
         &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت
+        <br><br>
+        <a href="about.html">عن الموقع والاتصال</a> | 
+        <a href="terms.html">التعليمات والشروط</a>
     </footer>
 
 </body>
 </html>
+
+```
+
+قم بنسخ هذا الكود واستبداله داخل ملف **`about.html`** في مستودع GitHub لديك لضمان تكامل جميع الصفحات والروابط بشكل صحيح!
