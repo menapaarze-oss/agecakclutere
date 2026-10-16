@@ -48,7 +48,7 @@
 
         nav {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -183,8 +183,19 @@
             text-align: center;
             padding: 15px;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 480px) {
@@ -204,11 +215,13 @@
 </head>
 <body>
 
+    <!-- القائمة العلوية الموحدة -->
     <header>
         <a href="index.html" class="logo">⚡ Aparze.Net</a>
         <nav>
             <a href="index.html">الرئيسية</a>
             <a href="programs.html">قسم البرامج</a>
+            <a href="paid-programs.html">البرامج المدفوعة</a>
             <a href="ads.html" class="active">عروض ابرزى نت</a>
             <a href="about.html">عن الموقع والاتصال</a>
         </nav>
@@ -223,8 +236,12 @@
         </div>
     </main>
 
+    <!-- الفوتر السفلي الموحد -->
     <footer>
         &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت
+        <br><br>
+        <a href="about.html">عن الموقع والاتصال</a> | 
+        <a href="terms.html">التعليمات والشروط</a>
     </footer>
 
     <script>
