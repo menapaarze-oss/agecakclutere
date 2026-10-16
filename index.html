@@ -1,486 +1,517 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>حاسبة العمر والفرق - Aparze.Net</title>
-  <!-- مكتبة البالونات والألعاب النارية -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <style>
-    :root {
-      --bg-color: #0f0f12;
-      --card-bg: #18181c;
-      --accent-color: #007bff;
-      --gold-color: #ffd700;
-      --gold-bg: #26210e;
-      --text-color: #ffffff;
-      --border-color: #2e2e36;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background: #141418;
-      text-align: center;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    header h1 {
-      margin: 0 0 10px 0;
-      color: var(--gold-color);
-      font-size: 26px;
-    }
-    nav a {
-      color: #bbb;
-      text-decoration: none;
-      margin: 0 8px;
-      font-weight: bold;
-      font-size: 15px;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    nav a:hover, nav a.active {
-      color: var(--gold-color);
-    }
-    .main-wrapper {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 15px;
-      flex: 1;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    .card-gold {
-      background: var(--gold-bg);
-      border: 1px solid var(--gold-color);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
-    }
-    h2 {
-      margin-top: 0;
-      font-size: 20px;
-      color: var(--accent-color);
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
-    }
-    .gold-title {
-      color: var(--gold-color) !important;
-      border-bottom-color: rgba(255, 215, 0, 0.3) !important;
-    }
-    .date-inputs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    .date-group {
-      flex: 1;
-    }
-    .date-group label {
-      display: block;
-      font-size: 13px;
-      color: #aaa;
-      margin-bottom: 5px;
-    }
-    select, input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: #222228;
-      color: #fff;
-      font-size: 15px;
-      box-sizing: border-box;
-      outline: none;
-    }
-    select:focus, input[type="number"]:focus {
-      border-color: var(--accent-color);
-    }
-    button {
-      background: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    .btn-gold {
-      background: var(--gold-color);
-      color: #000;
-    }
-    .btn-gold:hover {
-      background: #e6c200;
-    }
-    .result-box {
-      margin-top: 15px;
-      padding: 15px;
-      background: #111114;
-      border-radius: 8px;
-      display: none;
-      border-right: 4px solid var(--accent-color);
-    }
-    .result-box-gold {
-      background: #1a170a;
-      border-right-color: var(--gold-color);
-      color: var(--gold-color);
-    }
-    .result-box p {
-      margin: 6px 0;
-      font-size: 16px;
-    }
-    .birthday-banner {
-      display: none;
-      text-align: center;
-      background: linear-gradient(45deg, #ffd700, #ff8c00);
-      color: #000;
-      font-size: 22px;
-      font-weight: 900;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 15px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-      animation: pulse 1.5s infinite alternate;
-    }
-    @keyframes pulse {
-      0% { transform: scale(0.98); }
-      100% { transform: scale(1.02); }
-    }
-    footer {
-      background: #141418;
-      text-align: center;
-      padding: 15px 0;
-      border-top: 1px solid var(--border-color);
-      font-size: 14px;
-      color: #888;
-    }
-    footer a {
-      color: var(--gold-color);
-      text-decoration: none;
-      margin: 0 8px;
-      cursor: pointer;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    .modal-content {
-      background: var(--card-bg);
-      border: 1px solid var(--gold-color);
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 90%;
-      color: #fff;
-    }
-    .contact-btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .contact-link {
-      display: block;
-      padding: 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-    }
-    .wa-btn { background: #25d366; color: #fff; }
-    .call-btn { background: #007bff; color: #fff; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة العمر والفرق - ابرزى نت</title>
+    <!-- مكتبة البالونات والألعاب النارية -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #ffcc00;
+            --accent-hover: #e6b800;
+            --text-color: #ffffff;
+            --text-secondary: #aaa;
+            --border-color: #333333;
+            --gold-glow: #ffd700;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px 20px;
+            max-width: 850px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        /* كارت الفرق الذهبي */
+        .card-gold {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+            background: linear-gradient(180deg, #1e1e1e 0%, #252111 100%);
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .date-inputs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .date-group {
+            flex: 1;
+        }
+
+        .date-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select:focus, input[type="number"]:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(255, 204, 0, 0.4);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* نتائج الحساب */
+        .result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 20px;
+            background-color: #121212;
+            border-radius: 8px;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .result-box-gold {
+            border-right-color: var(--gold-glow);
+            background: #18150a;
+            box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+
+        .result-box p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        .gold-text {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* بنر عيد الميلاد الاحتفالي */
+        .birthday-banner {
+            display: none;
+            text-align: center;
+            background: linear-gradient(45deg, #ffcc00, #ff8c00);
+            color: #000;
+            font-size: 1.4rem;
+            font-weight: 900;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.98); }
+            100% { transform: scale(1.02); }
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 15px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal النافذة المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>Aparze.Net</h1>
-    <nav>
-      <a href="index.html" class="active">الرئيسية</a>
-      <a href="programs.html">البرامج المجانية</a>
-      <a href="paid-programs.html">البرامج المدفوعة</a>
-      <a onclick="openModal('offersModal')">عروض المحل</a>
-      <a onclick="openModal('contactModal')" style="color: var(--gold-color);">اتصل بنا 📞</a>
-    </nav>
-  </header>
+    <header>
+        <a href="index.html" class="logo">⚡ Aparze.Net</a>
+        <nav>
+            <a href="index.html" class="active">الرئيسية</a>
+            <a href="programs.html">البرامج المجانية</a>
+            <a href="paid-programs.html">البرامج المدفوعة</a>
+            <a onclick="openModal('offersModal')">عروض المحل</a>
+            <a onclick="openModal('aboutModal')">عن الموقع والاتصال</a>
+        </nav>
+    </header>
 
-  <div class="main-wrapper">
+    <main>
+        <!-- 1. قسم حساب العمر الفردي -->
+        <div class="content-card">
+            <h2>🎂 حساب العمر الدقيق</h2>
+            <div class="date-inputs">
+                <div class="date-group">
+                    <label>اليوم</label>
+                    <select id="day1"></select>
+                </div>
+                <div class="date-group">
+                    <label>الشهر</label>
+                    <select id="month1"></select>
+                </div>
+                <div class="date-group">
+                    <label>السنة (4 أرقام)</label>
+                    <input type="number" id="year1" placeholder="مثال: 1998" min="1900" max="2099" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
+                </div>
+            </div>
+            <button class="btn" onclick="calcSingleAge()">احسب العمر الان 🚀</button>
 
-    <!-- 1. قسم حساب العمر الفردي -->
-    <div class="card">
-      <h2>حساب العمر الدقيق</h2>
-      <div class="date-inputs">
-        <div class="date-group">
-          <label>اليوم</label>
-          <select id="day1"></select>
+            <div id="bdayBanner" class="birthday-banner">
+                🎉 عيد ميلاد سعيد! كل سنة وأنت طيب! 🎂✨
+            </div>
+
+            <div class="result-box" id="result1">
+                <p><strong>العمر بالتفصيل:</strong> <span id="ageText1" class="gold-text"></span></p>
+                <p><strong>إجمالي عدد الأيام:</strong> <span id="totalDays1" class="gold-text"></span> يوم</p>
+            </div>
         </div>
-        <div class="date-group">
-          <label>الشهر</label>
-          <select id="month1"></select>
-        </div>
-        <div class="date-group">
-          <label>السنة (4 أرقام)</label>
-          <input type="number" id="year1" placeholder="مثال: 1995" min="1900" max="2099" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-        </div>
-      </div>
-      <button onclick="calcSingleAge()">احسب العمر</button>
 
-      <div id="bdayBanner" class="birthday-banner">
-        🎉 عيد ميلاد سعيد! كل سنة وأنت طيب! 🎂✨
-      </div>
+        <!-- 2. قسم حساب الفرق بين شخصين (باللون الذهبي الفاخر) -->
+        <div class="content-card card-gold">
+            <h2 style="color: var(--accent-color);">⚖️ حساب فرق العمر بين شخصين</h2>
+            
+            <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px;">تاريخ الشخص الأول:</p>
+            <div class="date-inputs">
+                <div class="date-group">
+                    <label>اليوم</label>
+                    <select id="p1_day"></select>
+                </div>
+                <div class="date-group">
+                    <label>الشهر</label>
+                    <select id="p1_month"></select>
+                </div>
+                <div class="date-group">
+                    <label>السنة</label>
+                    <input type="number" id="p1_year" placeholder="1992" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
+                </div>
+            </div>
 
-      <div class="result-box" id="result1">
-        <p><strong>العمر:</strong> <span id="ageText1"></span></p>
-        <p><strong>إجمالي عدد الأيام:</strong> <span id="totalDays1"></span> يوم</p>
-      </div>
+            <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px;">تاريخ الشخص الثاني:</p>
+            <div class="date-inputs">
+                <div class="date-group">
+                    <label>اليوم</label>
+                    <select id="p2_day"></select>
+                </div>
+                <div class="date-group">
+                    <label>الشهر</label>
+                    <select id="p2_month"></select>
+                </div>
+                <div class="date-group">
+                    <label>السنة</label>
+                    <input type="number" id="p2_year" placeholder="1998" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
+                </div>
+            </div>
+
+            <button class="btn" onclick="calcAgeDiff()">احسب فرق العمر ⚖️</button>
+
+            <div class="result-box result-box-gold" id="result2">
+                <p><strong>فرق العمر:</strong> <span id="diffText" class="gold-text"></span></p>
+                <p><strong>إجمالي الفرق بالأيام:</strong> <span id="diffTotalDays" class="gold-text"></span> يوم</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- النوافذ المنبثقة Modals -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0;">عن الموقع والاتصال ⚡</h2>
+            <p>موقع <strong>ابرزى نت (Aparze Net)</strong> يقدم لكم أدوات حسابية حصرية وأحدث البرامج المجانية والمدفوعة وعروض المحل.</p>
+            <p><strong>للتواصل والخدمات:</strong><br>يمكنكم التواصل معنا عبر شبكتنا أو زيارة المحل للاستفسار والشحن.</p>
+            <button class="close-btn" onclick="closeModal('aboutModal')">إغلاق</button>
+        </div>
     </div>
 
-    <!-- 2. قسم حساب الفرق بين شخصين (بالألوان الذهبية) -->
-    <div class="card card-gold">
-      <h2 class="gold-title">حساب فرق العمر بين شخصين ⚖️</h2>
-      
-      <p style="color: #d4af37; font-size: 14px; margin-bottom: 5px;">الشخص الأول:</p>
-      <div class="date-inputs">
-        <div class="date-group">
-          <label style="color:#ffd700;">اليوم</label>
-          <select id="p1_day"></select>
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0;">شروط الاستخدام والتعليمات</h2>
+            <p>جميع الأدوات المتاحة هي لأغراض خدمية وحسابية. يرجى التأكد من كتابة التاريخ بدقة من 4 أرقام للحصول على أصح نتيجة.</p>
+            <button class="close-btn" onclick="closeModal('termsModal')">إغلاق</button>
         </div>
-        <div class="date-group">
-          <label style="color:#ffd700;">الشهر</label>
-          <select id="p1_month"></select>
-        </div>
-        <div class="date-group">
-          <label style="color:#ffd700;">السنة</label>
-          <input type="number" id="p1_year" placeholder="1990" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-        </div>
-      </div>
-
-      <p style="color: #d4af37; font-size: 14px; margin-bottom: 5px;">الشخص الثاني:</p>
-      <div class="date-inputs">
-        <div class="date-group">
-          <label style="color:#ffd700;">اليوم</label>
-          <select id="p2_day"></select>
-        </div>
-        <div class="date-group">
-          <label style="color:#ffd700;">الشهر</label>
-          <select id="p2_month"></select>
-        </div>
-        <div class="date-group">
-          <label style="color:#ffd700;">السنة</label>
-          <input type="number" id="p2_year" placeholder="1995" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-        </div>
-      </div>
-
-      <button class="btn-gold" onclick="calcAgeDiff()">احسب فرق العمر</button>
-
-      <div class="result-box result-box-gold" id="result2">
-        <p><strong>فرق العمر:</strong> <span id="diffText"></span></p>
-        <p><strong>إجمالي الفرق بالأيام:</strong> <span id="diffTotalDays"></span> يوم</p>
-      </div>
     </div>
 
-  </div>
-
-  <!-- Footer والعروض -->
-  <footer>
-    <p>جميع الحقوق محفوظة &copy; Aparze.Net</p>
-    <p>
-      <a onclick="openModal('aboutModal')">عن الموقع</a> | 
-      <a onclick="openModal('termsModal')">التعليمات والشروط</a> | 
-      <a onclick="openModal('contactModal')">اتصل بنا</a>
-    </p>
-  </footer>
-
-  <!-- Modal اتصل بنا -->
-  <div id="contactModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--gold-color);">تواصل معنا 📞</h3>
-      <p>يسعدنا تواصلكم واستفساراتكم بخصوص خدمات المحل والبرامج:</p>
-      <div class="contact-btn-group">
-        <a href="https://wa.me/20XXXXXXXXXX" target="_blank" class="contact-link wa-btn">💬 تواصل عبر الواتساب</a>
-        <a href="tel:01XXXXXXXXX" class="contact-link call-btn">📞 اتصال هاتفي مباشر</a>
-      </div>
-      <br>
-      <button onclick="closeModal('contactModal')">إغلاق</button>
+    <div id="offersModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0;">عروض ابرزى نت 🎁</h2>
+            <p>• خصومات خاصة على الشحن والخدمات داخل المحل.</p>
+            <p>• برامج مخصصة وأدوات حصرية بأسعار ممتازة.</p>
+            <button class="close-btn" onclick="closeModal('offersModal')">إغلاق</button>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal عروض المحل -->
-  <div id="offersModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--gold-color);">عروض محل Aparze.Net 🎁</h3>
-      <p>• خصومات خاصة على شحن الألعاب والخدمات الإلكترونية.</p>
-      <p>• عروض وتخفيضات على البرامج المدفوعة والتطبيقات المخصصة.</p>
-      <button onclick="closeModal('offersModal')">إغلاق</button>
-    </div>
-  </div>
+    <footer>
+        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت 
+        <br><br>
+        <a onclick="openModal('aboutModal')">عن الموقع والاتصال</a> | 
+        <a onclick="openModal('termsModal')">التعليمات والشروط</a>
+    </footer>
 
-  <!-- Modal عن الموقع -->
-  <div id="aboutModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--gold-color);">عن الموقع</h3>
-      <p>موقع Aparze.Net يقدم أدوات حسابية حصرية وأجمل البرامج والتطبيقات المجانية والمدفوعة الخاصة بشبكتنا ومحلنا.</p>
-      <button onclick="closeModal('aboutModal')">إغلاق</button>
-    </div>
-  </div>
+    <script>
+        // تعبئة قوائم الأيام والشهور تلقائياً
+        function initDropdowns() {
+            const dayIds = ['day1', 'p1_day', 'p2_day'];
+            const monthIds = ['month1', 'p1_month', 'p2_month'];
 
-  <!-- Modal التعليمات -->
-  <div id="termsModal" class="modal">
-    <div class="modal-content">
-      <h3 style="color:var(--gold-color);">التعليمات والشروط</h3>
-      <p>يرجى إدخال التواريخ بشكل صحيح للحصول على أدق النتائج في حساب العمر وفروقات الأيام.</p>
-      <button onclick="closeModal('termsModal')">إغلاق</button>
-    </div>
-  </div>
+            dayIds.forEach(id => {
+                const select = document.getElementById(id);
+                for(let i = 1; i <= 31; i++) {
+                    select.innerHTML += `<option value="${i}">${i}</option>`;
+                }
+            });
 
-  <script>
-    // تعبئة قوائم الأيام والشهور تلقائياً
-    function populateDropdowns() {
-      const daySelects = ['day1', 'p1_day', 'p2_day'];
-      const monthSelects = ['month1', 'p1_month', 'p2_month'];
-
-      daySelects.forEach(id => {
-        const el = document.getElementById(id);
-        for(let i=1; i<=31; i++) {
-          el.innerHTML += `<option value="${i}">${i}</option>`;
+            monthIds.forEach(id => {
+                const select = document.getElementById(id);
+                for(let i = 1; i <= 12; i++) {
+                    select.innerHTML += `<option value="${i}">${i}</option>`;
+                }
+            });
         }
-      });
 
-      monthSelects.forEach(id => {
-        const el = document.getElementById(id);
-        for(let i=1; i<=12; i++) {
-          el.innerHTML += `<option value="${i}">${i}</option>`;
+        initDropdowns();
+
+        // حساب العمر الفردي
+        function calcSingleAge() {
+            const d = parseInt(document.getElementById('day1').value);
+            const m = parseInt(document.getElementById('month1').value) - 1;
+            const y = parseInt(document.getElementById('year1').value);
+
+            if(!y || y < 1900 || y > 2099) {
+                alert('يرجى كتابة سنة صحيحة تتكون من 4 أرقام!');
+                return;
+            }
+
+            const birth = new Date(y, m, d);
+            const today = new Date();
+
+            if(birth > today) {
+                alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل!');
+                return;
+            }
+
+            let yrs = today.getFullYear() - birth.getFullYear();
+            let mths = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+
+            if (days < 0) {
+                mths--;
+                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (mths < 0) {
+                yrs--;
+                mths += 12;
+            }
+
+            const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
+            document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
+            document.getElementById('result1').style.display = 'block';
+
+            // إذا كان اليوم هو عيد ميلاده
+            if(today.getMonth() === m && today.getDate() === d) {
+                document.getElementById('bdayBanner').style.display = 'block';
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 180,
+                        spread: 100,
+                        origin: { y: 0.5 },
+                        colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800']
+                    });
+                }
+            } else {
+                document.getElementById('bdayBanner').style.display = 'none';
+            }
         }
-      });
-    }
 
-    populateDropdowns();
+        // حساب الفرق بين شخصين
+        function calcAgeDiff() {
+            const d1 = parseInt(document.getElementById('p1_day').value);
+            const m1 = parseInt(document.getElementById('p1_month').value) - 1;
+            const y1 = parseInt(document.getElementById('p1_year').value);
 
-    // حساب العمر الفردي
-    function calcSingleAge() {
-      const d = parseInt(document.getElementById('day1').value);
-      const m = parseInt(document.getElementById('month1').value) - 1;
-      const y = parseInt(document.getElementById('year1').value);
+            const d2 = parseInt(document.getElementById('p2_day').value);
+            const m2 = parseInt(document.getElementById('p2_month').value) - 1;
+            const y2 = parseInt(document.getElementById('p2_year').value);
 
-      if(!y || y < 1900 || y > 2099) {
-        alert('يرجى كتابة سنة صحيحة من 4 أرقام!');
-        return;
-      }
+            if(!y1 || !y2) {
+                alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!');
+                return;
+            }
 
-      const birth = new Date(y, m, d);
-      const today = new Date();
+            const date1 = new Date(y1, m1, d1);
+            const date2 = new Date(y2, m2, d2);
 
-      if(birth > today) {
-        alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل!');
-        return;
-      }
+            let older = date1 < date2 ? date1 : date2;
+            let younger = date1 < date2 ? date2 : date1;
 
-      // حساب العمر
-      let yrs = today.getFullYear() - birth.getFullYear();
-      let mths = today.getMonth() - birth.getMonth();
-      let days = today.getDate() - birth.getDate();
+            let yrs = younger.getFullYear() - older.getFullYear();
+            let mths = younger.getMonth() - older.getMonth();
+            let days = younger.getDate() - older.getDate();
 
-      if (days < 0) {
-        mths--;
-        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += prevMonth.getDate();
-      }
-      if (mths < 0) {
-        yrs--;
-        mths += 12;
-      }
+            if (days < 0) {
+                mths--;
+                const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (mths < 0) {
+                yrs--;
+                mths += 12;
+            }
 
-      const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+            const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));
 
-      document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
-      document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
-      document.getElementById('result1').style.display = 'block';
-
-      // فحص عيد الميلاد والبالونات الذهبية
-      if(today.getMonth() === m && today.getDate() === d) {
-        document.getElementById('bdayBanner').style.display = 'block';
-        
-        // إطلاق بالونات باللون الذهبي
-        if (typeof confetti === 'function') {
-          confetti({
-            particleCount: 150,
-            spread: 100,
-            origin: { y: 0.5 },
-            colors: ['#ffd700', '#ffa500', '#ffffff', '#e6c200']
-          });
+            document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
+            document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
+            document.getElementById('result2').style.display = 'block';
         }
-      } else {
-        document.getElementById('bdayBanner').style.display = 'none';
-      }
-    }
 
-    // حساب فرق العمر بين شخصين
-    function calcAgeDiff() {
-      const d1 = parseInt(document.getElementById('p1_day').value);
-      const m1 = parseInt(document.getElementById('p1_month').value) - 1;
-      const y1 = parseInt(document.getElementById('p1_year').value);
-
-      const d2 = parseInt(document.getElementById('p2_day').value);
-      const m2 = parseInt(document.getElementById('p2_month').value) - 1;
-      const y2 = parseInt(document.getElementById('p2_year').value);
-
-      if(!y1 || !y2) {
-        alert('يرجى كتابة السنوات لكل من الشخصين!');
-        return;
-      }
-
-      const date1 = new Date(y1, m1, d1);
-      const date2 = new Date(y2, m2, d2);
-
-      let older = date1 < date2 ? date1 : date2;
-      let younger = date1 < date2 ? date2 : date1;
-
-      let yrs = younger.getFullYear() - older.getFullYear();
-      let mths = younger.getMonth() - older.getMonth();
-      let days = younger.getDate() - older.getDate();
-
-      if (days < 0) {
-        mths--;
-        const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0);
-        days += prevMonth.getDate();
-      }
-      if (mths < 0) {
-        yrs--;
-        mths += 12;
-      }
-
-      const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));
-
-      document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
-      document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
-      document.getElementById('result2').style.display = 'block';
-    }
-
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-  </script>
-
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    </script>
 </body>
 </html>
