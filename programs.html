@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قسم البرامج - Aparze.Net</title>
+    <title>قسم البرامج المجانية - ابرزى نت</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -46,7 +46,7 @@
 
         nav {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -197,8 +197,19 @@
             text-align: center;
             padding: 15px;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 480px) {
@@ -219,15 +230,16 @@
         <a href="index.html" class="logo">⚡ Aparze.Net</a>
         <nav>
             <a href="index.html">الرئيسية</a>
-            <a href="programs.html" class="active">قسم البرامج</a>
+            <a href="programs.html" class="active">البرامج المجانية</a>
+            <a href="paid-programs.html">البرامج المدفوعة</a>
             <a href="ads.html">عروض المحل</a>
             <a href="about.html">عن الموقع والاتصال</a>
         </nav>
     </header>
 
     <main>
-        <h1 class="page-title">📦 مكتبة البرامج والأدوات المباشرة</h1>
-        <p class="page-subtitle">تحميل مباشر لأحدث البرامج والأدوات الخدمية من ابرازي نت عبر سرعة فائقة.</p>
+        <h1 class="page-title">📦 مكتبة البرامج والأدوات المجانية</h1>
+        <p class="page-subtitle">تحميل مباشر لأحدث البرامج والأدوات الخدمية من ابرزى نت بسرعة فائقة.</p>
         
         <!-- مربع البحث -->
         <div class="search-container">
@@ -235,7 +247,7 @@
         </div>
 
         <div class="programs-grid" id="programsContainer">
-            <!-- سيتم جلب البرامج وتعبئتها تلقائياً من ملف data.json -->
+            <!-- سيتم جلب البرامج وتعبئتها تلقائياً من ملف data.json[cite: 5] -->
         </div>
 
         <div id="noResults" class="no-results">
@@ -244,7 +256,10 @@
     </main>
 
     <footer>
-        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرازي نت
+        &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت
+        <br><br>
+        <a href="about.html">عن الموقع والاتصال</a> | 
+        <a href="terms.html">التعليمات والشروط</a>
     </footer>
 
     <script>
@@ -282,7 +297,7 @@
             });
         }
 
-        // قراءة البرامج من ملف data.json
+        // قراءة البرامج من ملف data.json[cite: 5]
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
@@ -301,7 +316,6 @@
                 const title = (prog.title || '').toLowerCase();
                 const description = (prog.description || '').toLowerCase();
 
-                // البحث سواء في عنوان البرنامج أو في وصفه باللغتين
                 return title.includes(searchTerm) || description.includes(searchTerm);
             });
 
