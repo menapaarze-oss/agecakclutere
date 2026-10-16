@@ -44,9 +44,10 @@
       font-weight: bold;
       font-size: 15px;
       transition: 0.3s;
+      cursor: pointer;
     }
     nav a:hover, nav a.active {
-      color: var(--accent-color);
+      color: var(--gold-color);
     }
     .main-wrapper {
       max-width: 800px;
@@ -173,14 +174,14 @@
     footer a {
       color: var(--gold-color);
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 8px;
       cursor: pointer;
     }
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       justify-content: center;
       align-items: center;
       z-index: 999;
@@ -194,6 +195,22 @@
       width: 90%;
       color: #fff;
     }
+    .contact-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .contact-link {
+      display: block;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+    }
+    .wa-btn { background: #25d366; color: #fff; }
+    .call-btn { background: #007bff; color: #fff; }
   </style>
 </head>
 <body>
@@ -204,7 +221,8 @@
       <a href="index.html" class="active">الرئيسية</a>
       <a href="programs.html">البرامج المجانية</a>
       <a href="paid-programs.html">البرامج المدفوعة</a>
-      <a href="#">عروض المحل</a>
+      <a onclick="openModal('offersModal')">عروض المحل</a>
+      <a onclick="openModal('contactModal')" style="color: var(--gold-color);">اتصل بنا 📞</a>
     </nav>
   </header>
 
@@ -290,9 +308,34 @@
     <p>جميع الحقوق محفوظة &copy; Aparze.Net</p>
     <p>
       <a onclick="openModal('aboutModal')">عن الموقع</a> | 
-      <a onclick="openModal('termsModal')">التعليمات والشروط</a>
+      <a onclick="openModal('termsModal')">التعليمات والشروط</a> | 
+      <a onclick="openModal('contactModal')">اتصل بنا</a>
     </p>
   </footer>
+
+  <!-- Modal اتصل بنا -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--gold-color);">تواصل معنا 📞</h3>
+      <p>يسعدنا تواصلكم واستفساراتكم بخصوص خدمات المحل والبرامج:</p>
+      <div class="contact-btn-group">
+        <a href="https://wa.me/20XXXXXXXXXX" target="_blank" class="contact-link wa-btn">💬 تواصل عبر الواتساب</a>
+        <a href="tel:01XXXXXXXXX" class="contact-link call-btn">📞 اتصال هاتفي مباشر</a>
+      </div>
+      <br>
+      <button onclick="closeModal('contactModal')">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Modal عروض المحل -->
+  <div id="offersModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:var(--gold-color);">عروض محل Aparze.Net 🎁</h3>
+      <p>• خصومات خاصة على شحن الألعاب والخدمات الإلكترونية.</p>
+      <p>• عروض وتخفيضات على البرامج المدفوعة والتطبيقات المخصصة.</p>
+      <button onclick="closeModal('offersModal')">إغلاق</button>
+    </div>
+  </div>
 
   <!-- Modal عن الموقع -->
   <div id="aboutModal" class="modal">
