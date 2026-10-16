@@ -173,5 +173,12 @@
     "image": "images/stop updates.png",
     "description": "برنامج ايقاف ابديت الويندوز واستعادة تشغيله اذا حبيت    ",
     "downloader": "https://www.mediafire.com/file/4xtlnmfx8f70v69/stop_updates_10_By_Aparze.Net.rar/file"
+    },
+  {
+    "id": 26,
+    "title": "Teorex.FolderIco",
+    "image": "https://raw.githubusercontent.com/menapaarze-oss/aparzenet/refs/heads/main/images/Teorex.FolderIco.avif",
+    "description": "برنامج لتشغيل شكل الفولدرات ولو الويندوز مش قارى الصور بتسطبه بتظهر الصور بتاعة الفولدرات",
+    "downloader": "https://www.mediafire.com/file/4xtlnmfx8f70v69/stop_updates_10_By_Aparze.Net.rar/file"
     }
  ]
