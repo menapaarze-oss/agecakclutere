@@ -166,5 +166,12 @@
     "image": "images/Pro Playlist Downloader.png",
     "description": "برنامج تحميل من اليوتيوب بلاى ليست كاملة او فيديو واحد بكل الجودات وحتى لو امبى ثرى   ",
     "downloader": "https://www.mediafire.com/file/k7kvjkknmj7l4b1/Pro_Playlist_Downloader_v1.0.rar/file"
+    },
+   {
+    "id": 25,
+    "title": "stop updates",
+    "image": "images/stop updates.png",
+    "description": "برنامج ايقاف ابديت الويندوز واستعادة تشغيله اذا حبيت    ",
+    "downloader": "https://www.mediafire.com/file/4xtlnmfx8f70v69/stop_updates_10_By_Aparze.Net.rar/file"
     }
  ]
