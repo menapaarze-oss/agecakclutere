@@ -49,7 +49,7 @@
 
         nav {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
@@ -87,7 +87,7 @@
             margin-bottom: 30px;
         }
 
-        /* كارت الفرق الذهبي */
+        /* كارت الفرق الذهبي الفاخر */
         .card-gold {
             border: 2px solid var(--accent-color);
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
@@ -270,14 +270,15 @@
 </head>
 <body>
 
+    <!-- الهيدر العلوي الموحد مع باقي الصفحات -->
     <header>
         <a href="index.html" class="logo">⚡ Aparze.Net</a>
         <nav>
             <a href="index.html" class="active">الرئيسية</a>
-            <a href="programs.html">البرامج المجانية</a>
+            <a href="programs.html">قسم البرامج</a>
             <a href="paid-programs.html">البرامج المدفوعة</a>
-            <a onclick="openModal('offersModal')">عروض المحل</a>
-            <a onclick="openModal('aboutModal')">عن الموقع والاتصال</a>
+            <a href="ads.html">عروض المحل</a>
+            <a href="about.html">عن الموقع والاتصال</a>
         </nav>
     </header>
 
@@ -356,42 +357,25 @@
         </div>
     </main>
 
-    <!-- النوافذ المنبثقة Modals -->
-    <div id="aboutModal" class="modal">
-        <div class="modal-content">
-            <h2 style="margin-top:0;">عن الموقع والاتصال ⚡</h2>
-            <p>موقع <strong>ابرزى نت (Aparze Net)</strong> يقدم لكم أدوات حسابية حصرية وأحدث البرامج المجانية والمدفوعة وعروض المحل.</p>
-            <p><strong>للتواصل والخدمات:</strong><br>يمكنكم التواصل معنا عبر شبكتنا أو زيارة المحل للاستفسار والشحن.</p>
-            <button class="close-btn" onclick="closeModal('aboutModal')">إغلاق</button>
-        </div>
-    </div>
-
+    <!-- النوافذ المنبثقة (Modals) للتعليمات والشروط -->
     <div id="termsModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-top:0;">شروط الاستخدام والتعليمات</h2>
+            <h2 style="margin-top:0;">التعليمات والشروط</h2>
             <p>جميع الأدوات المتاحة هي لأغراض خدمية وحسابية. يرجى التأكد من كتابة التاريخ بدقة من 4 أرقام للحصول على أصح نتيجة.</p>
             <button class="close-btn" onclick="closeModal('termsModal')">إغلاق</button>
         </div>
     </div>
 
-    <div id="offersModal" class="modal">
-        <div class="modal-content">
-            <h2 style="margin-top:0;">عروض ابرزى نت 🎁</h2>
-            <p>• خصومات خاصة على الشحن والخدمات داخل المحل.</p>
-            <p>• برامج مخصصة وأدوات حصرية بأسعار ممتازة.</p>
-            <button class="close-btn" onclick="closeModal('offersModal')">إغلاق</button>
-        </div>
-    </div>
-
+    <!-- الفوتر السفلي المتناسق -->
     <footer>
         &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت 
         <br><br>
-        <a onclick="openModal('aboutModal')">عن الموقع والاتصال</a> | 
+        <a href="about.html">عن الموقع والاتصال</a> | 
         <a onclick="openModal('termsModal')">التعليمات والشروط</a>
     </footer>
 
     <script>
-        // تعبئة قوائم الأيام والشهور تلقائياً
+        // تعبئة قوائم الأيام (1-31) والشهور (1-12) تلقائياً
         function initDropdowns() {
             const dayIds = ['day1', 'p1_day', 'p2_day'];
             const monthIds = ['month1', 'p1_month', 'p2_month'];
@@ -452,7 +436,7 @@
             document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
             document.getElementById('result1').style.display = 'block';
 
-            // إذا كان اليوم هو عيد ميلاده
+            // تفاعل عيد الميلاد والبالونات الذهبية
             if(today.getMonth() === m && today.getDate() === d) {
                 document.getElementById('bdayBanner').style.display = 'block';
                 if (typeof confetti === 'function') {
