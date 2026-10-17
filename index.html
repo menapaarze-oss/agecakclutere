@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head><meta name="edc1ee67a6d6ad86934b1d3ea1dbee5fa8d10fb7" content="edc1ee67a6d6ad86934b1d3ea1dbee5fa8d10fb7" />
+<head>
+    <meta name="edc1ee67a6d6ad86934b1d3ea1dbee5fa8d10fb7" content="edc1ee67a6d6ad86934b1d3ea1dbee5fa8d10fb7" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة العمر والفرق - ابرزى نت</title>
@@ -210,6 +211,47 @@
             100% { transform: scale(1.02); }
         }
 
+        /* تنسيق كارت الخربشة (Scratch Card) */
+        .scratch-container {
+            position: relative;
+            width: 300px;
+            height: 160px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+            background: #121212;
+            border: 2px solid var(--accent-color);
+        }
+
+        .scratch-prize {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            box-sizing: border-box;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #ffcc00;
+            background: radial-gradient(circle, #2a2510 0%, #121212 100%);
+        }
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            touch-action: none;
+        }
+
         footer {
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
@@ -318,6 +360,71 @@
                 <p><strong>فرق العمر:</strong> <span id="diffText" class="gold-text"></span></p>
                 <p><strong>إجمالي الفرق بالأيام:</strong> <span id="diffTotalDays" class="gold-text"></span> يوم</p>
             </div>
+        </div>
+
+        <!-- 3. قسم كوبون الحظ المخرّش (Scratch Card) -->
+        <div class="content-card" style="text-align: center;">
+            <h2 style="color: #ffcc00;">🎟️ كارت حظ ابرزى نت اليومي</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بإصبعك أو الماوس واكتشف هديتك اليومية في السايبر!</p>
+            
+            <div class="scratch-container">
+                <div class="scratch-prize" id="scratchPrizeText">
+                    <!-- سيتم تحديث النص هنا تلقائياً بـ JavaScript -->
+                </div>
+                <canvas id="scratchCanvas" class="scratch-canvas" width="300" height="160"></canvas>
+            </div>
+
+            <button class="btn" onclick="resetScratchCard()" style="max-width: 200px; margin: 15px auto 0 auto; font-size: 0.95rem; padding: 8px;">جرب كارت آخر 🔄</button>
+        </div>
+
+        <!-- 4. قسم لعبة Tic Tac Toe (إكس أوه) -->
+        <div class="content-card" style="text-align: center;">
+            <h2>🎮 لعبة Tic Tac Toe (X O)</h2>
+            <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">سلي وقتك واختبر ذكاءك ضد الكمبيوتر أو مع صاحبك!</p>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="margin-left: 10px; color: #ffcc00; font-weight: bold;">نمط اللعب:</label>
+                <select id="gameMode" onchange="resetGame()" style="max-width: 180px; display: inline-block;">
+                    <option value="ai">ضد الكمبيوتر</option>
+                    <option value="pvp">لاعب ضد لاعب</option>
+                </select>
+            </div>
+
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px; background: #121212; padding: 10px; border-radius: 8px; font-weight: bold;">
+                <span style="color: #00fff5;">X (اللاعب): <span id="scoreX">0</span></span>
+                <span style="color: #ff007f;">O (الخصم): <span id="scoreO">0</span></span>
+            </div>
+
+            <div id="board" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 260px; height: 260px; margin: 0 auto;">
+                <button class="cell" onclick="makeMove(0)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(1)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(2)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(3)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(4)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(5)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(6)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(7)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(8)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+            </div>
+
+            <p id="gameStatus" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #ffcc00;"></p>
+            <button class="btn" onclick="resetGame()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">إعادة اللعب 🔄</button>
+        </div>
+
+        <!-- 5. قسم لعبة الحفظ السريع (اختبار الذاكرة) -->
+        <div class="content-card" style="text-align: center;">
+            <h2>🧠 لعبة الحفظ السريع والذاكرة</h2>
+            <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">اعثر على الأيقونات المتطابقة في أقل وقت ممكن!</p>
+
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px; background: #121212; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem;">
+                <span style="color: #00fff5;">المحاولات: <span id="flipCount">0</span></span>
+                <span style="color: #ffcc00;">الوقت: <span id="timer">0</span> ثانية</span>
+            </div>
+
+            <div id="memoryBoard" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 280px; height: 280px; margin: 0 auto;"></div>
+
+            <p id="winMessage" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #00fff5;"></p>
+            <button class="btn" onclick="startMemoryGame()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">لعبة جديدة 🔄</button>
         </div>
     </main>
 
@@ -448,35 +555,271 @@
             document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
             document.getElementById('result2').style.display = 'block';
         }
-  </script>
+
+        /* --- برمجية كارت الحظ المخرّش (Scratch Card) --- */
+        let scratchCount = 0;
+        let isScratching = false;
+
+        function initScratchCard() {
+            const canvas = document.getElementById('scratchCanvas');
+            const ctx = canvas.getContext('2d');
+            const prizeText = document.getElementById('scratchPrizeText');
+
+            scratchCount++;
+            if (scratchCount < 3) {
+                prizeText.innerHTML = "🍀 حظ سعيد..<br>خربش الكارت مرة أخرى!";
+            } else {
+                prizeText.innerHTML = "🎉 مبروك! كسبت عرض:<br>حجز ساعتين عليهم نص ساعة مجاناً + كوباية شاي هدية! ☕🎮";
+            }
+
+            ctx.fillStyle = '#888888';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#666666';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('خربش هنا لإظهار المفاجأة 🪙', canvas.width / 2, canvas.height / 2 + 5);
+
+            function scratch(e) {
+                if (!isScratching) return;
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 18, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            canvas.addEventListener('mousedown', () => isScratching = true);
+            canvas.addEventListener('mouseup', () => isScratching = false);
+            canvas.addEventListener('mousemove', scratch);
+
+            canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
+            canvas.addEventListener('touchend', () => isScratching = false);
+            canvas.addEventListener('touchmove', scratch);
+        }
+
+        function resetScratchCard() {
+            initScratchCard();
+        }
+
+        initScratchCard();
+
+        /* --- برمجية لعبة Tic Tac Toe (إكس أوه) --- */
+        let boardState = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+        let scoreX = 0;
+        let scoreO = 0;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function makeMove(index) {
+            if (boardState[index] !== "" || !isGameActive) return;
+
+            boardState[index] = currentPlayer;
+            updateBoard();
+
+            if (checkWin()) {
+                document.getElementById("gameStatus").innerText = `🎉 اللاعب (${currentPlayer}) كسب!`;
+                if (currentPlayer === "X") scoreX++; else scoreO++;
+                updateScores();
+                isGameActive = false;
+                return;
+            }
+
+            if (!boardState.includes("")) {
+                document.getElementById("gameStatus").innerText = "تعادل! 🤝";
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            const mode = document.getElementById("gameMode").value;
+
+            if (mode === "ai" && currentPlayer === "O" && isGameActive) {
+                document.getElementById("gameStatus").innerText = "دور الكمبيوتر...";
+                setTimeout(aiMove, 400);
+            } else {
+                document.getElementById("gameStatus").innerText = `دور اللاعب (${currentPlayer})`;
+            }
+        }
+
+        function aiMove() {
+            if (!isGameActive) return;
+            let emptyIndices = boardState.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
+            if (emptyIndices.length > 0) {
+                let randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+                makeMove(randomIndex);
+            }
+        }
+
+        function updateBoard() {
+            const cells = document.getElementsByClassName("cell");
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].innerText = boardState[i];
+                cells[i].style.color = boardState[i] === "X" ? "#00fff5" : "#ff007f";
+            }
+        }
+
+        function checkWin() {
+            for (let condition of winningConditions) {
+                let [a, b, c] = condition;
+                if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function updateScores() {
+            document.getElementById("scoreX").innerText = scoreX;
+            document.getElementById("scoreO").innerText = scoreO;
+        }
+
+        function resetGame() {
+            boardState = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            isGameActive = true;
+            document.getElementById("gameStatus").innerText = "ابدأ اللعب! دور (X)";
+            updateBoard();
+        }
+
+        /* --- برمجية لعبة الحفظ السريع والذاكرة --- */
+        const emojis = ['🎮', '🕹️', '🚀', '⚽', '🎯', '🔥', '💎', '👾'];
+        let cardsArray = [...emojis, ...emojis];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let timer = 0;
+        let timerInterval = null;
+        let gameStarted = false;
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startMemoryGame() {
+            const board = document.getElementById("memoryBoard");
+            board.innerHTML = "";
+            cardsArray = shuffle([...emojis, ...emojis]);
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            timer = 0;
+            gameStarted = false;
+            
+            clearInterval(timerInterval);
+            document.getElementById("flipCount").innerText = moves;
+            document.getElementById("timer").innerText = timer;
+            document.getElementById("winMessage").innerText = "";
+
+            cardsArray.forEach((emoji, index) => {
+                const card = document.createElement("div");
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.style.cssText = "background: #2a2a2a; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; user-select: none; transition: transform 0.3s, background 0.3s; border: 2px solid #333;";
+                card.innerText = "❓";
+                card.addEventListener("click", () => flipCard(card));
+                board.appendChild(card);
+            });
+        }
+
+        function startTimer() {
+            if (!gameStarted) {
+                gameStarted = true;
+                timerInterval = setInterval(() => {
+                    timer++;
+                    document.getElementById("timer").innerText = timer;
+                }, 1000);
+            }
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length === 2 || card.classList.contains("matched") || flippedCards.includes(card)) return;
+
+            startTimer();
+
+            card.innerText = card.dataset.emoji;
+            card.style.background = "#e6b800";
+            card.style.color = "#000";
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                moves++;
+                document.getElementById("flipCount").innerText = moves;
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add("matched");
+                card2.classList.add("matched");
+                card1.style.background = "#00b894";
+                card2.style.background = "#00b894";
+                matchedPairs++;
+                flippedCards = [];
+
+                if (matchedPairs === emojis.length) {
+                    clearInterval(timerInterval);
+                    document.getElementById("winMessage").innerText = `🎉 مبروك! كسبت في ${moves} محاولة و ${timer} ثانية!`;
+                }
+            } else {
+                setTimeout(() => {
+                    card1.innerText = "❓";
+                    card2.innerText = "❓";
+                    card1.style.background = "#2a2a2a";
+                    card2.style.background = "#2a2a2a";
+                    card1.style.color = "#fff";
+                    card2.style.color = "#fff";
+                    flippedCards = [];
+                }, 700);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", startMemoryGame);
+    </script>
+
+    <!-- أكواد الإعلانات المحفوظة بدون أي تعديل -->
     <script src="https://plump-plastic.com/bK3dV-0/P.3eppvkbdmsVEJpZgDj0-3kN/TkI/1bNcj/grx/LqT/cZ1kMwjhU-2FOvDkUg"></script>
     <script>
-(function(ljzd){
-var d = document,
-    s = d.createElement('script'),
-    l = d.currentScript || d.scripts[d.scripts.length - 1];
-s.settings = ljzd || {};
-s.src = "\/\/massivesalad.com\/bQXuV\/s\/d.GqlJ0\/YtWgcz\/Fejmj9juJZLUMlkk\/P\/Tkc-1GM\/jrUm3KMCTTM\/t\/NVzGUayvNkTzcHxWNpwp";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<!-- إعلان النقر (Popunder) من Adsterra -->
-<script data-cfasync="false" src="https://abscloud.org/1/eb1c2437b4821e7cb65557b721e6f141"></script>
+    (function(ljzd){
+    var d = document,
+        s = d.createElement('script'),
+        l = d.currentScript || d.scripts[d.scripts.length - 1];
+    s.settings = ljzd || {};
+    s.src = "\/\/massivesalad.com\/bQXuV\/s\/d.GqlJ0\/YtWgcz\/Fejmj9juJZLUMlkk\/P\/Tkc-1GM\/jrUm3KMCTTM\/t\/NVzGUayvNkTzcHxWNpwp";
+    s.async = true;
+    s.referrerPolicy = 'no-referrer-when-downgrade';
+    l.parentNode.insertBefore(s, l);
+    })({})
+    </script>
 
-<!-- إعلان البانر الثابت على الشمال (Banner 300x250) من Adsterra -->
-<div style="position: fixed; bottom: 10px; left: 10px; z-index: 9999;">
-  <script>
-    atOptions = {
-      'key' : '47fa5b31368182c571ceff9f4c425eb1',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  </script>
-  <script src="https://bauval.org/22/47fa5b31368182c571ceff9f4c425eb1"></script>
-</div>    
+    <!-- إعلان النقر (Popunder) من Adsterra -->
+    <script data-cfasync="false" src="https://abscloud.org/1/eb1c2437b4821e7cb65557b721e6f141"></script>
+
+    <!-- إعلان البانر الثابت على الشمال (Banner 300x250) من Adsterra -->
+    <div style="position: fixed; bottom: 10px; left: 10px; z-index: 9999;">
+      <script>
+        atOptions = {
+          'key' : '47fa5b31368182c571ceff9f4c425eb1',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/47fa5b31368182c571ceff9f4c425eb1"></script>
+    </div>    
 </body>
 </html>
