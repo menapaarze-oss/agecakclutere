@@ -215,5 +215,12 @@
     "image": "images/regedit.png",
     "description": "ملف ريجيت لتشغل الشبكة للنت ورك لو الويندوز مش مفعلها ",
     "downloader": "https://www.mediafire.com/file/hagarhyameex7jd/Network.rar/file"
+    },
+  {
+    "id": 32,
+    "title": "AAM Hardware Tester",
+    "image": "images/AAM Hardware Tester.png",
+    "description": "برنامج رائع لتجربة الماوس والكيبورد والسماعات",
+    "downloader": "https://www.mediafire.com/file/u590973cxj7xc6a/AAM_Hardware_Tester.rar/file"
     }
  ]
