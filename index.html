@@ -276,6 +276,7 @@
             height: 100%;
             cursor: pointer;
             touch-action: none;
+            z-index: 2;
         }
 
         footer {
@@ -394,9 +395,7 @@
             <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بالماوس أو إصبعك كاملاً واكتشف هديتك اليومية في السايبر!</p>
             
             <div class="scratch-container">
-                <div class="scratch-prize" id="scratchPrizeContent">
-                    <!-- محتوى العرض يتم إنشاؤه عبر JS -->
-                </div>
+                <div class="scratch-prize" id="scratchPrizeContent"></div>
                 <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="180"></canvas>
             </div>
 
@@ -520,7 +519,63 @@
 
             const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
 
-            document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`; document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG'); document.getElementById('result1').style.display = 'block';  if(today.getMonth() === m && today.getDate() === d) { document.getElementById('bdayBanner').style.display = 'block'; if (typeof confetti === 'function') { confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800'] }); } } else { document.getElementById('bdayBanner').style.display = 'none'; } }  // حساب الفرق بين شخصين function calcAgeDiff() { const d1 = parseInt(document.getElementById('p1_day').value); const m1 = parseInt(document.getElementById('p1_month').value) - 1; const y1 = parseInt(document.getElementById('p1_year').value);  const d2 = parseInt(document.getElementById('p2_day').value); const m2 = parseInt(document.getElementById('p2_month').value) - 1; const y2 = parseInt(document.getElementById('p2_year').value);  if(!y1 \vert{}\vert{} !y2) { alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!'); return; }  const date1 = new Date(y1, m1, d1); const date2 = new Date(y2, m2, d2);  let older = date1 < date2 ? date1 : date2; let younger = date1 < date2 ? date2 : date1;  let yrs = younger.getFullYear() - older.getFullYear(); let mths = younger.getMonth() - older.getMonth(); let days = younger.getDate() - older.getDate();  if (days < 0) { mths--; const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0); days += prevMonth.getDate(); } if (mths < 0) { yrs--; mths += 12; }  const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));  document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days}..."
+            document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
+            document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
+            document.getElementById('result1').style.display = 'block';
+
+            if(today.getMonth() === m && today.getDate() === d) {
+                document.getElementById('bdayBanner').style.display = 'block';
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 180,
+                        spread: 100,
+                        origin: { y: 0.5 },
+                        colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800']
+                    });
+                }
+            } else {
+                document.getElementById('bdayBanner').style.display = 'none';
+            }
+        }
+
+        // حساب الفرق بين شخصين
+        function calcAgeDiff() {
+            const d1 = parseInt(document.getElementById('p1_day').value);
+            const m1 = parseInt(document.getElementById('p1_month').value) - 1;
+            const y1 = parseInt(document.getElementById('p1_year').value);
+
+            const d2 = parseInt(document.getElementById('p2_day').value);
+            const m2 = parseInt(document.getElementById('p2_month').value) - 1;
+            const y2 = parseInt(document.getElementById('p2_year').value);
+
+            if(!y1 || !y2) {
+                alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!');
+                return;
+            }
+
+            const date1 = new Date(y1, m1, d1);
+            const date2 = new Date(y2, m2, d2);
+
+            let older = date1 < date2 ? date1 : date2;
+            let younger = date1 < date2 ? date2 : date1;
+
+            let yrs = younger.getFullYear() - older.getFullYear();
+            let mths = younger.getMonth() - older.getMonth();
+            let days = younger.getDate() - older.getDate();
+
+            if (days < 0) {
+                mths--;
+                const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (mths < 0) {
+                yrs--;
+                mths += 12;
+            }
+
+            const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
             document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
             document.getElementById('result2').style.display = 'block';
         }
@@ -542,7 +597,6 @@
 
             scratchAttempts++;
 
-            // الجائزة تظهر فقط في المحاولة الـ 50 فصاعداً
             if (scratchAttempts < 50) {
                 prizeContainer.innerHTML = `
                     <div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد.. لسه ما كسبتش!</div>
@@ -560,12 +614,12 @@
                 `;
             }
 
-            // إعادة رسم غطاء الكارت الرمادي بـ Canvas
+            canvas.style.display = 'block';
             ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#777777';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            ctx.fillStyle = '#222222';
+            ctx.fillStyle = '#111111';
             ctx.font = 'bold 16px sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('🪙 خربش المساحة الرمادية هنا 🪙', canvas.width / 2, canvas.height / 2 + 5);
@@ -586,12 +640,10 @@
                 ctx.fill();
 
                 clearedPixels++;
-                if (clearedPixels > 45) {
+                if (clearedPixels > 40) {
                     canvas.style.display = 'none';
                 }
             }
-
-            canvas.style.display = 'block';
 
             canvas.onmousedown = () => isScratching = true;
             canvas.onmouseup = () => isScratching = false;
@@ -606,6 +658,7 @@
             initScratchCard();
         }
 
+        // تشغيل كارت الخربشة فوراً
         initScratchCard();
 
         /* --- برمجية لعبة Tic Tac Toe (إكس أوه) --- */
