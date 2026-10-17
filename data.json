@@ -229,5 +229,12 @@
     "image": "images/Everything.jpg",
     "description": "برنامج رائع للبحث بدقة عالية جدا على الكمبيوتر كله ",
     "downloader": "https://www.mediafire.com/file/b1z52no97h8jt75/Everything-1.4.1.1032.x86.zip/file"
+    },
+  {
+    "id": 34,
+    "title": "unlocker",
+    "image": "https://raw.githubusercontent.com/menapaarze-oss/aparzenet/refs/heads/main/images/unlocker.avif",
+    "description": "برنامج مسح الملفات المستعصية ",
+    "downloader": "https://www.mediafire.com/file/cfqjo3agisu4ixe/unlocker-1-9-2By_Aparze.Net.rar/file"
     }
  ]
