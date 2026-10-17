@@ -208,5 +208,12 @@
     "image": "images/winbox.jpg",
     "description": "برنامج وين بوكس الشهر للتحكم فى المايكرو تك  ",
     "downloader": "https://www.mediafire.com/file/st9xlqu9m0ritr8/winbox64.rar/file"
+    },
+  {
+    "id": 31,
+    "title": "regedit Network",
+    "image": "images/regedit.png",
+    "description": "ملف ريجيت لتشغل الشبكة للنت ورك لو الويندوز مش مفعلها ",
+    "downloader": "https://www.mediafire.com/file/hagarhyameex7jd/Network.rar/file"
     }
  ]
