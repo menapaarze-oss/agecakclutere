@@ -201,5 +201,12 @@
     "image": "images/office2019.jpg",
     "description": "اوفيس 2019 من الموقع الرسمى ",
     "downloader": "https://filecr.com/file-download/?id=981269100000"
+    },
+  {
+    "id": 29,
+    "title": "winbox64",
+    "image": "images/winbox.jpg",
+    "description": "برنامج وين بوكس الشهر للتحكم فى المايكرو تك  ",
+    "downloader": "https://www.mediafire.com/file/st9xlqu9m0ritr8/winbox64.rar/file"
     }
  ]
