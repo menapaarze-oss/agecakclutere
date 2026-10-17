@@ -214,8 +214,8 @@
         /* تنسيق كارت الخربشة (Scratch Card) */
         .scratch-container {
             position: relative;
-            width: 300px;
-            height: 160px;
+            width: 320px;
+            height: 180px;
             margin: 0 auto;
             border-radius: 12px;
             overflow: hidden;
@@ -231,15 +231,41 @@
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 15px;
             box-sizing: border-box;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #ffcc00;
             background: radial-gradient(circle, #2a2510 0%, #121212 100%);
+        }
+
+        .prize-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .prize-opt-btn {
+            flex: 1;
+            padding: 8px 5px;
+            background: #2a2a2a;
+            border: 1px solid #ffcc00;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .prize-opt-btn:hover, .prize-opt-btn.selected {
+            background: #ffcc00;
+            color: #000;
+            font-weight: bold;
         }
 
         .scratch-canvas {
@@ -362,16 +388,16 @@
             </div>
         </div>
 
-        <!-- 3. قسم كوبون الحظ المخرّش (Scratch Card) -->
+        <!-- 3. قسم كوبون الحظ المخرّش الصعب والذكي (Scratch Card) -->
         <div class="content-card" style="text-align: center;">
             <h2 style="color: #ffcc00;">🎟️ كارت حظ ابرزى نت اليومي</h2>
-            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بإصبعك أو الماوس واكتشف هديتك اليومية في السايبر!</p>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بالماوس أو إصبعك كاملاً واكتشف هديتك اليومية في السايبر!</p>
             
             <div class="scratch-container">
-                <div class="scratch-prize" id="scratchPrizeText">
-                    <!-- سيتم تحديث النص هنا تلقائياً بـ JavaScript -->
+                <div class="scratch-prize" id="scratchPrizeContent">
+                    <!-- محتوى العرض يتم إنشاؤه عبر JS -->
                 </div>
-                <canvas id="scratchCanvas" class="scratch-canvas" width="300" height="160"></canvas>
+                <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="180"></canvas>
             </div>
 
             <button class="btn" onclick="resetScratchCard()" style="max-width: 200px; margin: 15px auto 0 auto; font-size: 0.95rem; padding: 8px;">جرب كارت آخر 🔄</button>
@@ -381,7 +407,7 @@
         <div class="content-card" style="text-align: center;">
             <h2>🎮 لعبة Tic Tac Toe (X O)</h2>
             <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">سلي وقتك واختبر ذكاءك ضد الكمبيوتر أو مع صاحبك!</p>
-            
+
             <div style="margin-bottom: 15px;">
                 <label style="margin-left: 10px; color: #ffcc00; font-weight: bold;">نمط اللعب:</label>
                 <select id="gameMode" onchange="resetGame()" style="max-width: 180px; display: inline-block;">
@@ -428,7 +454,7 @@
         </div>
     </main>
 
-    <!-- الفوتر السفلي مرتبط بملف terms.html المباشر -->
+    <!-- الفوتر السفلي -->
     <footer>
         &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت 
         <br><br>
@@ -437,7 +463,7 @@
     </footer>
 
     <script>
-        // تعبئة قوائم الأيام (1-31) والشهور (1-12) تلقائياً
+        // تعبئة قوائم الأيام والشهور
         function initDropdowns() {
             const dayIds = ['day1', 'p1_day', 'p2_day'];
             const monthIds = ['month1', 'p1_month', 'p2_month'];
@@ -498,7 +524,6 @@
             document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
             document.getElementById('result1').style.display = 'block';
 
-            // تفاعل عيد الميلاد والبالونات الذهبية
             if(today.getMonth() === m && today.getDate() === d) {
                 document.getElementById('bdayBanner').style.display = 'block';
                 if (typeof confetti === 'function') {
@@ -556,28 +581,52 @@
             document.getElementById('result2').style.display = 'block';
         }
 
-        /* --- برمجية كارت الحظ المخرّش (Scratch Card) --- */
-        let scratchCount = 0;
+        /* --- برمجية كارت الحظ المخرّش الذكي والصعب (Scratch Card) --- */
+        let scratchAttempts = 0;
         let isScratching = false;
+
+        function selectPrizeOption(btn, prizeName) {
+            document.querySelectorAll('.prize-opt-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            alert(`تهانينا! اخترت: (${prizeName}). احفظ هذه الشاشة وأظهرها للإدارة بالسايبر لمستحقاتك! 🎉`);
+        }
 
         function initScratchCard() {
             const canvas = document.getElementById('scratchCanvas');
             const ctx = canvas.getContext('2d');
-            const prizeText = document.getElementById('scratchPrizeText');
+            const prizeContainer = document.getElementById('scratchPrizeContent');
 
-            scratchCount++;
-            if (scratchCount < 3) {
-                prizeText.innerHTML = "🍀 حظ سعيد..<br>خربش الكارت مرة أخرى!";
+            scratchAttempts++;
+
+            // الجائزة تظهر فقط في المحاولة الـ 5 فصاعداً
+            if (scratchAttempts < 5) {
+                prizeContainer.innerHTML = `
+                    <div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد..</div>
+                    <div style="font-size:0.9rem; color:#fff;">خربش الكارت مرة أخرى لتجربة حظك!</div>
+                    <div style="font-size:0.8rem; color:#888; margin-top:8px;">محاولة (${scratchAttempts} من 5)</div>
+                `;
             } else {
-                prizeText.innerHTML = "🎉 مبروك! كسبت عرض:<br>حجز ساعتين عليهم نص ساعة مجاناً + كوباية شاي هدية! ☕🎮";
+                prizeContainer.innerHTML = `
+                    <div style="color:#00fff5; font-size:1rem; margin-bottom:5px;">🎉 مبروك! كسبت عرض الساعتين!</div>
+                    <div style="font-size:0.85rem; color:#fff;">اختار هديتك مع الساعتين الان:</div>
+                    <div class="prize-options">
+                        <button class="prize-opt-btn" onclick="selectPrizeOption(this, 'نصف ساعة مجاناً')">🎁 1. نصف ساعة مجاناً</button>
+                        <button class="prize-opt-btn" onclick="selectPrizeOption(this, 'كوباية شاي مجاناً')">☕ 2. كوباية شاي مجاناً</button>
+                    </div>
+                `;
             }
 
-            ctx.fillStyle = '#888888';
+            // إعادة رسم غطاء الكارت الرمادي بـ Canvas
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = '#777777';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#666666';
+            
+            ctx.fillStyle = '#222222';
             ctx.font = 'bold 16px sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('خربش هنا لإظهار المفاجأة 🪙', canvas.width / 2, canvas.height / 2 + 5);
+            ctx.fillText('🪙 خربش المساحة الرمادية هنا 🪙', canvas.width / 2, canvas.height / 2 + 5);
+
+            let clearedPixels = 0;
 
             function scratch(e) {
                 if (!isScratching) return;
@@ -589,17 +638,25 @@
 
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath();
-                ctx.arc(x, y, 18, 0, Math.PI * 2);
+                ctx.arc(x, y, 22, 0, Math.PI * 2);
                 ctx.fill();
+
+                clearedPixels++;
+                // إزالة الغطاء تلقائياً عند خربشة أكثر من 40% من الكارت
+                if (clearedPixels > 45) {
+                    canvas.style.display = 'none';
+                }
             }
 
-            canvas.addEventListener('mousedown', () => isScratching = true);
-            canvas.addEventListener('mouseup', () => isScratching = false);
-            canvas.addEventListener('mousemove', scratch);
+            canvas.style.display = 'block';
 
-            canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
-            canvas.addEventListener('touchend', () => isScratching = false);
-            canvas.addEventListener('touchmove', scratch);
+            canvas.onmousedown = () => isScratching = true;
+            canvas.onmouseup = () => isScratching = false;
+            canvas.onmousemove = scratch;
+
+            canvas.ontouchstart = (e) => { isScratching = true; scratch(e); };
+            canvas.ontouchend = () => isScratching = false;
+            canvas.ontouchmove = scratch;
         }
 
         function resetScratchCard() {
@@ -790,7 +847,7 @@
         document.addEventListener("DOMContentLoaded", startMemoryGame);
     </script>
 
-    <!-- أكواد الإعلانات المحفوظة بدون أي تعديل -->
+    <!-- أكواد الإعلانات المحفوظة بالكامل -->
     <script src="https://plump-plastic.com/bK3dV-0/P.3eppvkbdmsVEJpZgDj0-3kN/TkI/1bNcj/grx/LqT/cZ1kMwjhU-2FOvDkUg"></script>
     <script>
     (function(ljzd){
