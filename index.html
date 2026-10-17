@@ -388,7 +388,7 @@
             </div>
         </div>
 
-        <!-- 3. قسم كوبون الحظ المخرّش الصعب والذكي (Scratch Card) -->
+        <!-- 3. قسم كوبون الحظ المخرّش (Scratch Card) -->
         <div class="content-card" style="text-align: center;">
             <h2 style="color: #ffcc00;">🎟️ كارت حظ ابرزى نت اليومي</h2>
             <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بالماوس أو إصبعك كاملاً واكتشف هديتك اليومية في السايبر!</p>
@@ -520,75 +520,19 @@
 
             const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
 
-            document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
-            document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
-            document.getElementById('result1').style.display = 'block';
-
-            if(today.getMonth() === m && today.getDate() === d) {
-                document.getElementById('bdayBanner').style.display = 'block';
-                if (typeof confetti === 'function') {
-                    confetti({
-                        particleCount: 180,
-                        spread: 100,
-                        origin: { y: 0.5 },
-                        colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800']
-                    });
-                }
-            } else {
-                document.getElementById('bdayBanner').style.display = 'none';
-            }
-        }
-
-        // حساب الفرق بين شخصين
-        function calcAgeDiff() {
-            const d1 = parseInt(document.getElementById('p1_day').value);
-            const m1 = parseInt(document.getElementById('p1_month').value) - 1;
-            const y1 = parseInt(document.getElementById('p1_year').value);
-
-            const d2 = parseInt(document.getElementById('p2_day').value);
-            const m2 = parseInt(document.getElementById('p2_month').value) - 1;
-            const y2 = parseInt(document.getElementById('p2_year').value);
-
-            if(!y1 || !y2) {
-                alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!');
-                return;
-            }
-
-            const date1 = new Date(y1, m1, d1);
-            const date2 = new Date(y2, m2, d2);
-
-            let older = date1 < date2 ? date1 : date2;
-            let younger = date1 < date2 ? date2 : date1;
-
-            let yrs = younger.getFullYear() - older.getFullYear();
-            let mths = younger.getMonth() - older.getMonth();
-            let days = younger.getDate() - older.getDate();
-
-            if (days < 0) {
-                mths--;
-                const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-            if (mths < 0) {
-                yrs--;
-                mths += 12;
-            }
-
-            const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));
-
-            document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
+            document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`; document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG'); document.getElementById('result1').style.display = 'block';  if(today.getMonth() === m && today.getDate() === d) { document.getElementById('bdayBanner').style.display = 'block'; if (typeof confetti === 'function') { confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800'] }); } } else { document.getElementById('bdayBanner').style.display = 'none'; } }  // حساب الفرق بين شخصين function calcAgeDiff() { const d1 = parseInt(document.getElementById('p1_day').value); const m1 = parseInt(document.getElementById('p1_month').value) - 1; const y1 = parseInt(document.getElementById('p1_year').value);  const d2 = parseInt(document.getElementById('p2_day').value); const m2 = parseInt(document.getElementById('p2_month').value) - 1; const y2 = parseInt(document.getElementById('p2_year').value);  if(!y1 \vert{}\vert{} !y2) { alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!'); return; }  const date1 = new Date(y1, m1, d1); const date2 = new Date(y2, m2, d2);  let older = date1 < date2 ? date1 : date2; let younger = date1 < date2 ? date2 : date1;  let yrs = younger.getFullYear() - older.getFullYear(); let mths = younger.getMonth() - older.getMonth(); let days = younger.getDate() - older.getDate();  if (days < 0) { mths--; const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0); days += prevMonth.getDate(); } if (mths < 0) { yrs--; mths += 12; }  const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));  document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days}..."
             document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
             document.getElementById('result2').style.display = 'block';
         }
 
-        /* --- برمجية كارت الحظ المخرّش الذكي والصعب (Scratch Card) --- */
+        /* --- برمجية كارت الحظ المخرّش (Scratch Card - 50 محاولة) --- */
         let scratchAttempts = 0;
         let isScratching = false;
 
         function selectPrizeOption(btn, prizeName) {
             document.querySelectorAll('.prize-opt-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
-            alert(`تهانينا! اخترت: (${prizeName}). احفظ هذه الشاشة وأظهرها للإدارة بالسايبر لمستحقاتك! 🎉`);
+            alert(`تهانينا! اخترت: (${prizeName}). احفظ هذه الشاشة وأظهرها للإدارة بالسايبر لاستلام هديتك! 🎉`);
         }
 
         function initScratchCard() {
@@ -598,16 +542,16 @@
 
             scratchAttempts++;
 
-            // الجائزة تظهر فقط في المحاولة الـ 5 فصاعداً
-            if (scratchAttempts < 5) {
+            // الجائزة تظهر فقط في المحاولة الـ 50 فصاعداً
+            if (scratchAttempts < 50) {
                 prizeContainer.innerHTML = `
-                    <div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد..</div>
-                    <div style="font-size:0.9rem; color:#fff;">خربش الكارت مرة أخرى لتجربة حظك!</div>
-                    <div style="font-size:0.8rem; color:#888; margin-top:8px;">محاولة (${scratchAttempts} من 5)</div>
+                    <div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد.. لسه ما كسبتش!</div>
+                    <div style="font-size:0.9rem; color:#fff;">استمر في الخربشة واكتشف هديتك!</div>
+                    <div style="font-size:0.85rem; color:#00fff5; margin-top:8px; font-weight:bold;">المحاولة رقم (${scratchAttempts} من 50)</div>
                 `;
             } else {
                 prizeContainer.innerHTML = `
-                    <div style="color:#00fff5; font-size:1rem; margin-bottom:5px;">🎉 مبروك! كسبت عرض الساعتين!</div>
+                    <div style="color:#00fff5; font-size:1rem; margin-bottom:5px;">🎉 مبروك وصولك للعرض الخاص!</div>
                     <div style="font-size:0.85rem; color:#fff;">اختار هديتك مع الساعتين الان:</div>
                     <div class="prize-options">
                         <button class="prize-opt-btn" onclick="selectPrizeOption(this, 'نصف ساعة مجاناً')">🎁 1. نصف ساعة مجاناً</button>
@@ -642,7 +586,6 @@
                 ctx.fill();
 
                 clearedPixels++;
-                // إزالة الغطاء تلقائياً عند خربشة أكثر من 40% من الكارت
                 if (clearedPixels > 45) {
                     canvas.style.display = 'none';
                 }
