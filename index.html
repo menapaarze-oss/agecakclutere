@@ -87,7 +87,6 @@
             margin-bottom: 30px;
         }
 
-        /* كارت الفرق الذهبي الفاخر */
         .card-gold {
             border: 2px solid var(--accent-color);
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
@@ -162,7 +161,6 @@
             transform: translateY(-2px);
         }
 
-        /* نتائج الحساب */
         .result-box {
             display: none;
             margin-top: 20px;
@@ -191,7 +189,6 @@
             font-size: 1.2rem;
         }
 
-        /* بنر عيد الميلاد الاحتفالي */
         .birthday-banner {
             display: none;
             text-align: center;
@@ -211,7 +208,7 @@
             100% { transform: scale(1.02); }
         }
 
-        /* تنسيق كارت الخربشة (Scratch Card) */
+        /* كارت الخربشة */
         .scratch-container {
             position: relative;
             width: 320px;
@@ -303,7 +300,6 @@
 </head>
 <body>
 
-    <!-- الهيدر العلوي الموحد -->
     <header>
         <a href="index.html" class="logo">⚡ Aparze.Net</a>
         <nav>
@@ -316,7 +312,7 @@
     </header>
 
     <main>
-        <!-- 1. قسم حساب العمر الفردي -->
+        <!-- 1. حساب العمر -->
         <div class="content-card">
             <h2>🎂 حساب العمر الدقيق</h2>
             <div class="date-inputs">
@@ -345,40 +341,21 @@
             </div>
         </div>
 
-        <!-- 2. قسم حساب الفرق بين شخصين (باللون الذهبي الفاخر) -->
+        <!-- 2. فرق العمر -->
         <div class="content-card card-gold">
             <h2 style="color: var(--accent-color);">⚖️ حساب فرق العمر بين شخصين</h2>
-            
             <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px;">تاريخ الشخص الأول:</p>
             <div class="date-inputs">
-                <div class="date-group">
-                    <label>اليوم</label>
-                    <select id="p1_day"></select>
-                </div>
-                <div class="date-group">
-                    <label>الشهر</label>
-                    <select id="p1_month"></select>
-                </div>
-                <div class="date-group">
-                    <label>السنة</label>
-                    <input type="number" id="p1_year" placeholder="1992" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-                </div>
+                <div class="date-group"><label>اليوم</label><select id="p1_day"></select></div>
+                <div class="date-group"><label>الشهر</label><select id="p1_month"></select></div>
+                <div class="date-group"><label>السنة</label><input type="number" id="p1_year" placeholder="1992" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);"></div>
             </div>
 
             <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 5px;">تاريخ الشخص الثاني:</p>
             <div class="date-inputs">
-                <div class="date-group">
-                    <label>اليوم</label>
-                    <select id="p2_day"></select>
-                </div>
-                <div class="date-group">
-                    <label>الشهر</label>
-                    <select id="p2_month"></select>
-                </div>
-                <div class="date-group">
-                    <label>السنة</label>
-                    <input type="number" id="p2_year" placeholder="1998" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
-                </div>
+                <div class="date-group"><label>اليوم</label><select id="p2_day"></select></div>
+                <div class="date-group"><label>الشهر</label><select id="p2_month"></select></div>
+                <div class="date-group"><label>السنة</label><input type="number" id="p2_year" placeholder="1998" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);"></div>
             </div>
 
             <button class="btn" onclick="calcAgeDiff()">احسب فرق العمر ⚖️</button>
@@ -389,7 +366,7 @@
             </div>
         </div>
 
-        <!-- 3. قسم كوبون الحظ المخرّش (Scratch Card) -->
+        <!-- 3. كارت الخربشة (50 محاولة) -->
         <div class="content-card" style="text-align: center;">
             <h2 style="color: #ffcc00;">🎟️ كارت حظ ابرزى نت اليومي</h2>
             <p style="color: #aaa; margin-bottom: 15px; font-size: 0.95rem;">خربش الكارت بالماوس أو إصبعك كاملاً واكتشف هديتك اليومية في السايبر!</p>
@@ -398,15 +375,13 @@
                 <div class="scratch-prize" id="scratchPrizeContent"></div>
                 <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="180"></canvas>
             </div>
-
             <button class="btn" onclick="resetScratchCard()" style="max-width: 200px; margin: 15px auto 0 auto; font-size: 0.95rem; padding: 8px;">جرب كارت آخر 🔄</button>
         </div>
 
-        <!-- 4. قسم لعبة Tic Tac Toe (إكس أوه) -->
+        <!-- 4. لعبة Tic Tac Toe -->
         <div class="content-card" style="text-align: center;">
             <h2>🎮 لعبة Tic Tac Toe (X O)</h2>
             <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">سلي وقتك واختبر ذكاءك ضد الكمبيوتر أو مع صاحبك!</p>
-
             <div style="margin-bottom: 15px;">
                 <label style="margin-left: 10px; color: #ffcc00; font-weight: bold;">نمط اللعب:</label>
                 <select id="gameMode" onchange="resetGame()" style="max-width: 180px; display: inline-block;">
@@ -414,46 +389,63 @@
                     <option value="pvp">لاعب ضد لاعب</option>
                 </select>
             </div>
-
             <div style="display: flex; justify-content: space-around; margin-bottom: 15px; background: #121212; padding: 10px; border-radius: 8px; font-weight: bold;">
                 <span style="color: #00fff5;">X (اللاعب): <span id="scoreX">0</span></span>
                 <span style="color: #ff007f;">O (الخصم): <span id="scoreO">0</span></span>
             </div>
-
             <div id="board" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 260px; height: 260px; margin: 0 auto;">
-                <button class="cell" onclick="makeMove(0)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(1)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(2)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(3)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(4)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(5)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(6)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(7)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
-                <button class="cell" onclick="makeMove(8)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer; transition: 0.2s;"></button>
+                <button class="cell" onclick="makeMove(0)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(1)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(2)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(3)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(4)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(5)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(6)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(7)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
+                <button class="cell" onclick="makeMove(8)" style="background: #2a2a2a; border: 2px solid #333; font-size: 32px; font-weight: bold; color: #fff; border-radius: 8px; cursor: pointer;"></button>
             </div>
-
             <p id="gameStatus" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #ffcc00;"></p>
             <button class="btn" onclick="resetGame()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">إعادة اللعب 🔄</button>
         </div>
 
-        <!-- 5. قسم لعبة الحفظ السريع (اختبار الذاكرة) -->
+        <!-- 5. لعبة الذاكرة السريعة -->
         <div class="content-card" style="text-align: center;">
             <h2>🧠 لعبة الحفظ السريع والذاكرة</h2>
             <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">اعثر على الأيقونات المتطابقة في أقل وقت ممكن!</p>
-
             <div style="display: flex; justify-content: space-around; margin-bottom: 15px; background: #121212; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem;">
                 <span style="color: #00fff5;">المحاولات: <span id="flipCount">0</span></span>
                 <span style="color: #ffcc00;">الوقت: <span id="timer">0</span> ثانية</span>
             </div>
-
             <div id="memoryBoard" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 280px; height: 280px; margin: 0 auto;"></div>
-
             <p id="winMessage" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #00fff5;"></p>
             <button class="btn" onclick="startMemoryGame()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">لعبة جديدة 🔄</button>
         </div>
+
+        <!-- 6. لعبة كونتكت فور (Connect 4) الجديدة -->
+        <div class="content-card" style="text-align: center;">
+            <h2>🔴 لعبة Connect 4 التحدي</h2>
+            <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">وصل 4 دوائر وراء بعض عشان تكسب صاحبك!</p>
+            <div style="display: flex; justify-content: space-around; margin-bottom: 10px; font-weight: bold; font-size: 0.95rem;">
+                <span style="color: #ff3333;">دور اللاعب: <span id="c4Turn">الأحمر 🔴</span></span>
+            </div>
+            <div id="c4Board" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; background: #0f172a; padding: 10px; border-radius: 10px; width: 310px; height: 270px; margin: 0 auto;"></div>
+            <p id="c4Status" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #ffcc00;"></p>
+            <button class="btn" onclick="initC4()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">إعادة اللعبة 🔄</button>
+        </div>
+
+        <!-- 7. لعبة ترتيب الأرقام (Slide Puzzle) الجديدة -->
+        <div class="content-card" style="text-align: center;">
+            <h2>🔢 لعبة ترتيب الأرقام الذكية</h2>
+            <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;">بدل الأماكن ورتب الأرقام بالتسلسل من 1 إلى 15!</p>
+            <div style="display: flex; justify-content: space-around; margin-bottom: 10px; font-weight: bold; font-size: 0.95rem;">
+                <span style="color: #00fff5;">الحركات: <span id="puzMoves">0</span></span>
+            </div>
+            <div id="puzBoard" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #0f172a; padding: 10px; border-radius: 10px; width: 260px; height: 260px; margin: 0 auto;"></div>
+            <p id="puzStatus" style="margin-top: 15px; font-size: 1rem; font-weight: bold; min-height: 24px; color: #ffcc00;"></p>
+            <button class="btn" onclick="initPuzzle()" style="max-width: 180px; margin: 0 auto; font-size: 0.95rem; padding: 8px;">لعبة جديدة 🔄</button>
+        </div>
     </main>
 
-    <!-- الفوتر السفلي -->
     <footer>
         &copy; 2026 جميع الحقوق محفوظة | (Aparze Net) ابرزى نت 
         <br><br>
@@ -462,258 +454,125 @@
     </footer>
 
     <script>
-        // تعبئة قوائم الأيام والشهور
         function initDropdowns() {
             const dayIds = ['day1', 'p1_day', 'p2_day'];
             const monthIds = ['month1', 'p1_month', 'p2_month'];
-
             dayIds.forEach(id => {
                 const select = document.getElementById(id);
-                for(let i = 1; i <= 31; i++) {
-                    select.innerHTML += `<option value="${i}">${i}</option>`;
-                }
+                for(let i = 1; i <= 31; i++) select.innerHTML += `<option value="${i}">${i}</option>`;
             });
-
             monthIds.forEach(id => {
                 const select = document.getElementById(id);
-                for(let i = 1; i <= 12; i++) {
-                    select.innerHTML += `<option value="${i}">${i}</option>`;
-                }
+                for(let i = 1; i <= 12; i++) select.innerHTML += `<option value="${i}">${i}</option>`;
             });
         }
-
         initDropdowns();
 
-        // حساب العمر الفردي
         function calcSingleAge() {
             const d = parseInt(document.getElementById('day1').value);
             const m = parseInt(document.getElementById('month1').value) - 1;
             const y = parseInt(document.getElementById('year1').value);
-
-            if(!y || y < 1900 || y > 2099) {
-                alert('يرجى كتابة سنة صحيحة تتكون من 4 أرقام!');
-                return;
-            }
-
+            if(!y || y < 1900 || y > 2099) { alert('يرجى كتابة سنة صحيحة!'); return; }
             const birth = new Date(y, m, d);
             const today = new Date();
-
-            if(birth > today) {
-                alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل!');
-                return;
-            }
-
+            if(birth > today) { alert('تاريخ الميلاد في المستقبل!'); return; }
             let yrs = today.getFullYear() - birth.getFullYear();
             let mths = today.getMonth() - birth.getMonth();
             let days = today.getDate() - birth.getDate();
-
-            if (days < 0) {
-                mths--;
-                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-            if (mths < 0) {
-                yrs--;
-                mths += 12;
-            }
-
+            if (days < 0) { mths--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+            if (mths < 0) { yrs--; mths += 12; }
             const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
-
             document.getElementById('ageText1').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
             document.getElementById('totalDays1').innerText = totalDays.toLocaleString('ar-EG');
             document.getElementById('result1').style.display = 'block';
-
             if(today.getMonth() === m && today.getDate() === d) {
                 document.getElementById('bdayBanner').style.display = 'block';
-                if (typeof confetti === 'function') {
-                    confetti({
-                        particleCount: 180,
-                        spread: 100,
-                        origin: { y: 0.5 },
-                        colors: ['#ffcc00', '#ffd700', '#ffffff', '#e6b800']
-                    });
-                }
-            } else {
-                document.getElementById('bdayBanner').style.display = 'none';
-            }
+                if (typeof confetti === 'function') confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 } });
+            } else { document.getElementById('bdayBanner').style.display = 'none'; }
         }
 
-        // حساب الفرق بين شخصين
         function calcAgeDiff() {
-            const d1 = parseInt(document.getElementById('p1_day').value);
-            const m1 = parseInt(document.getElementById('p1_month').value) - 1;
-            const y1 = parseInt(document.getElementById('p1_year').value);
-
-            const d2 = parseInt(document.getElementById('p2_day').value);
-            const m2 = parseInt(document.getElementById('p2_month').value) - 1;
-            const y2 = parseInt(document.getElementById('p2_year').value);
-
-            if(!y1 || !y2) {
-                alert('يرجى اختيار وتأكيد السنة للشخصين بشكل صحيح!');
-                return;
-            }
-
-            const date1 = new Date(y1, m1, d1);
-            const date2 = new Date(y2, m2, d2);
-
-            let older = date1 < date2 ? date1 : date2;
-            let younger = date1 < date2 ? date2 : date1;
-
-            let yrs = younger.getFullYear() - older.getFullYear();
-            let mths = younger.getMonth() - older.getMonth();
-            let days = younger.getDate() - older.getDate();
-
-            if (days < 0) {
-                mths--;
-                const prevMonth = new Date(younger.getFullYear(), younger.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-            if (mths < 0) {
-                yrs--;
-                mths += 12;
-            }
-
-            const totalDiffDays = Math.floor((younger - older) / (1000 * 60 * 60 * 24));
-
+            const d1 = parseInt(document.getElementById('p1_day').value), m1 = parseInt(document.getElementById('p1_month').value) - 1, y1 = parseInt(document.getElementById('p1_year').value);
+            const d2 = parseInt(document.getElementById('p2_day').value), m2 = parseInt(document.getElementById('p2_month').value) - 1, y2 = parseInt(document.getElementById('p2_year').value);
+            if(!y1 || !y2) { alert('اختر السنة للشخصين!'); return; }
+            const date1 = new Date(y1, m1, d1), date2 = new Date(y2, m2, d2);
+            let older = date1 < date2 ? date1 : date2, younger = date1 < date2 ? date2 : date1;
+            let yrs = younger.getFullYear() - older.getFullYear(), mths = younger.getMonth() - older.getMonth(), days = younger.getDate() - older.getDate();
+            if (days < 0) { mths--; days += new Date(younger.getFullYear(), younger.getMonth(), 0).getDate(); }
+            if (mths < 0) { yrs--; mths += 12; }
             document.getElementById('diffText').innerText = `${yrs} سنة و ${mths} شهر و ${days} يوم`;
-            document.getElementById('diffTotalDays').innerText = totalDiffDays.toLocaleString('ar-EG');
+            document.getElementById('diffTotalDays').innerText = Math.floor((younger - older) / (1000 * 60 * 60 * 24)).toLocaleString('ar-EG');
             document.getElementById('result2').style.display = 'block';
         }
 
-        /* --- برمجية كارت الحظ المخرّش (Scratch Card - 50 محاولة) --- */
-        let scratchAttempts = 0;
-        let isScratching = false;
-
+        /* --- كارت الخربشة (50 محاولة) --- */
+        let scratchAttempts = 0, isScratching = false;
         function selectPrizeOption(btn, prizeName) {
             document.querySelectorAll('.prize-opt-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             alert(`تهانينا! اخترت: (${prizeName}). احفظ هذه الشاشة وأظهرها للإدارة بالسايبر لاستلام هديتك! 🎉`);
         }
-
         function initScratchCard() {
-            const canvas = document.getElementById('scratchCanvas');
-            const ctx = canvas.getContext('2d');
-            const prizeContainer = document.getElementById('scratchPrizeContent');
-
+            const canvas = document.getElementById('scratchCanvas'), ctx = canvas.getContext('2d'), prizeContainer = document.getElementById('scratchPrizeContent');
             scratchAttempts++;
-
             if (scratchAttempts < 50) {
-                prizeContainer.innerHTML = `
-                    <div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد.. لسه ما كسبتش!</div>
-                    <div style="font-size:0.9rem; color:#fff;">استمر في الخربشة واكتشف هديتك!</div>
-                    <div style="font-size:0.85rem; color:#00fff5; margin-top:8px; font-weight:bold;">المحاولة رقم (${scratchAttempts} من 50)</div>
-                `;
+                prizeContainer.innerHTML = `<div style="font-size:1.1rem; color:#ffcc00; margin-bottom:5px;">🍀 حظ سعيد.. لسه ما كسبتش!</div><div style="font-size:0.9rem; color:#fff;">استمر في الخربشة واكتشف هديتك!</div><div style="font-size:0.85rem; color:#00fff5; margin-top:8px; font-weight:bold;">المحاولة رقم (${scratchAttempts} من 50)</div>`;
             } else {
-                prizeContainer.innerHTML = `
-                    <div style="color:#00fff5; font-size:1rem; margin-bottom:5px;">🎉 مبروك وصولك للعرض الخاص!</div>
-                    <div style="font-size:0.85rem; color:#fff;">اختار هديتك مع الساعتين الان:</div>
-                    <div class="prize-options">
-                        <button class="prize-opt-btn" onclick="selectPrizeOption(this, 'نصف ساعة مجاناً')">🎁 1. نصف ساعة مجاناً</button>
-                        <button class="prize-opt-btn" onclick="selectPrizeOption(this, 'كوباية شاي مجاناً')">☕ 2. كوباية شاي مجاناً</button>
-                    </div>
-                `;
+                prizeContainer.innerHTML = `<div style="color:#00fff5; font-size:1rem; margin-bottom:5px;">🎉 مبروك وصولك للعرض الخاص!</div><div style="font-size:0.85rem; color:#fff;">اختار هديتك مع الساعتين الان:</div><div class="prize-options"><button class="prize-opt-btn" onclick="selectPrizeOption(this, 'نصف ساعة مجاناً')">🎁 1. نصف ساعة مجاناً</button><button class="prize-opt-btn" onclick="selectPrizeOption(this, 'كوباية شاي مجاناً')">☕ 2. كوباية شاي مجاناً</button></div>`;
             }
-
             canvas.style.display = 'block';
             ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#777777';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
             ctx.fillStyle = '#111111';
             ctx.font = 'bold 16px sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('🪙 خربش المساحة الرمادية هنا 🪙', canvas.width / 2, canvas.height / 2 + 5);
-
             let clearedPixels = 0;
-
             function scratch(e) {
                 if (!isScratching) return;
-                const rect = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                const x = clientX - rect.left;
-                const y = clientY - rect.top;
-
+                const rect = canvas.getBoundingClientRect(), clientX = e.touches ? e.touches[0].clientX : e.clientX, clientY = e.touches ? e.touches[0].clientY : e.clientY;
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath();
-                ctx.arc(x, y, 22, 0, Math.PI * 2);
+                ctx.arc(clientX - rect.left, clientY - rect.top, 22, 0, Math.PI * 2);
                 ctx.fill();
-
                 clearedPixels++;
-                if (clearedPixels > 40) {
-                    canvas.style.display = 'none';
-                }
+                if (clearedPixels > 40) canvas.style.display = 'none';
             }
-
             canvas.onmousedown = () => isScratching = true;
             canvas.onmouseup = () => isScratching = false;
             canvas.onmousemove = scratch;
-
             canvas.ontouchstart = (e) => { isScratching = true; scratch(e); };
             canvas.ontouchend = () => isScratching = false;
             canvas.ontouchmove = scratch;
         }
-
-        function resetScratchCard() {
-            initScratchCard();
-        }
-
-        // تشغيل كارت الخربشة فوراً
+        function resetScratchCard() { initScratchCard(); }
         initScratchCard();
 
-        /* --- برمجية لعبة Tic Tac Toe (إكس أوه) --- */
-        let boardState = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "X";
-        let isGameActive = true;
-        let scoreX = 0;
-        let scoreO = 0;
-
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
+        /* --- لعبة Tic Tac Toe --- */
+        let boardState = ["", "", "", "", "", "", "", "", ""], currentPlayer = "X", isGameActive = true, scoreX = 0, scoreO = 0;
+        const winningConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         function makeMove(index) {
             if (boardState[index] !== "" || !isGameActive) return;
-
             boardState[index] = currentPlayer;
             updateBoard();
-
             if (checkWin()) {
                 document.getElementById("gameStatus").innerText = `🎉 اللاعب (${currentPlayer}) كسب!`;
                 if (currentPlayer === "X") scoreX++; else scoreO++;
-                updateScores();
-                isGameActive = false;
-                return;
+                document.getElementById("scoreX").innerText = scoreX;
+                document.getElementById("scoreO").innerText = scoreO;
+                isGameActive = false; return;
             }
-
-            if (!boardState.includes("")) {
-                document.getElementById("gameStatus").innerText = "تعادل! 🤝";
-                isGameActive = false;
-                return;
-            }
-
+            if (!boardState.includes("")) { document.getElementById("gameStatus").innerText = "تعادل! 🤝"; isGameActive = false; return; }
             currentPlayer = currentPlayer === "X" ? "O" : "X";
-            const mode = document.getElementById("gameMode").value;
-
-            if (mode === "ai" && currentPlayer === "O" && isGameActive) {
+            if (document.getElementById("gameMode").value === "ai" && currentPlayer === "O" && isGameActive) {
                 document.getElementById("gameStatus").innerText = "دور الكمبيوتر...";
-                setTimeout(aiMove, 400);
-            } else {
-                document.getElementById("gameStatus").innerText = `دور اللاعب (${currentPlayer})`;
-            }
+                setTimeout(() => {
+                    let empty = boardState.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+                    if(empty.length > 0) makeMove(empty[Math.floor(Math.random() * empty.length)]);
+                }, 400);
+            } else { document.getElementById("gameStatus").innerText = `دور اللاعب (${currentPlayer})`; }
         }
-
-        function aiMove() {
-            if (!isGameActive) return;
-            let emptyIndices = boardState.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
-            if (emptyIndices.length > 0) {
-                let randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-                makeMove(randomIndex);
-            }
-        }
-
         function updateBoard() {
             const cells = document.getElementsByClassName("cell");
             for (let i = 0; i < cells.length; i++) {
@@ -721,135 +580,170 @@
                 cells[i].style.color = boardState[i] === "X" ? "#00fff5" : "#ff007f";
             }
         }
-
         function checkWin() {
-            for (let condition of winningConditions) {
-                let [a, b, c] = condition;
-                if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-                    return true;
-                }
-            }
+            for (let c of winningConditions) if (boardState[c[0]] && boardState[c[0]] === boardState[c[1]] && boardState[c[0]] === boardState[c[2]]) return true;
             return false;
         }
+        function resetGame() { boardState = ["","","","","","","","",""]; currentPlayer = "X"; isGameActive = true; document.getElementById("gameStatus").innerText = "ابدأ اللعب! دور (X)"; updateBoard(); }
 
-        function updateScores() {
-            document.getElementById("scoreX").innerText = scoreX;
-            document.getElementById("scoreO").innerText = scoreO;
-        }
-
-        function resetGame() {
-            boardState = ["", "", "", "", "", "", "", "", ""];
-            currentPlayer = "X";
-            isGameActive = true;
-            document.getElementById("gameStatus").innerText = "ابدأ اللعب! دور (X)";
-            updateBoard();
-        }
-
-        /* --- برمجية لعبة الحفظ السريع والذاكرة --- */
+        /* --- لعبة الذاكرة --- */
         const emojis = ['🎮', '🕹️', '🚀', '⚽', '🎯', '🔥', '💎', '👾'];
-        let cardsArray = [...emojis, ...emojis];
-        let flippedCards = [];
-        let matchedPairs = 0;
-        let moves = 0;
-        let timer = 0;
-        let timerInterval = null;
-        let gameStarted = false;
-
-        function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
-
+        let cardsArray = [...emojis, ...emojis], flippedCards = [], matchedPairs = 0, moves = 0, timer = 0, timerInterval = null, gameStarted = false;
         function startMemoryGame() {
             const board = document.getElementById("memoryBoard");
             board.innerHTML = "";
-            cardsArray = shuffle([...emojis, ...emojis]);
-            flippedCards = [];
-            matchedPairs = 0;
-            moves = 0;
-            timer = 0;
-            gameStarted = false;
-            
+            cardsArray = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            flippedCards = []; matchedPairs = 0; moves = 0; timer = 0; gameStarted = false;
             clearInterval(timerInterval);
             document.getElementById("flipCount").innerText = moves;
             document.getElementById("timer").innerText = timer;
             document.getElementById("winMessage").innerText = "";
-
             cardsArray.forEach((emoji, index) => {
                 const card = document.createElement("div");
-                card.dataset.emoji = emoji;
-                card.dataset.index = index;
-                card.style.cssText = "background: #2a2a2a; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; user-select: none; transition: transform 0.3s, background 0.3s; border: 2px solid #333;";
+                card.style.cssText = "background: #2a2a2a; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; user-select: none;";
                 card.innerText = "❓";
-                card.addEventListener("click", () => flipCard(card));
+                card.onclick = () => {
+                    if (flippedCards.length === 2 || card.classList.contains("matched") || flippedCards.includes(card)) return;
+                    if (!gameStarted) { gameStarted = true; timerInterval = setInterval(() => { timer++; document.getElementById("timer").innerText = timer; }, 1000); }
+                    card.innerText = emoji; card.style.background = "#e6b800"; card.style.color = "#000";
+                    flippedCards.push({card, emoji});
+                    if (flippedCards.length === 2) {
+                        moves++; document.getElementById("flipCount").innerText = moves;
+                        if (flippedCards[0].emoji === flippedCards[1].emoji) {
+                            flippedCards.forEach(f => { f.card.classList.add("matched"); f.card.style.background = "#00b894"; });
+                            matchedPairs++; flippedCards = [];
+                            if (matchedPairs === emojis.length) { clearInterval(timerInterval); document.getElementById("winMessage").innerText = `🎉 مبروك! كسبت في ${moves} محاولة و ${timer} ثانية!`; }
+                        } else {
+                            setTimeout(() => {
+                                flippedCards.forEach(f => { f.card.innerText = "❓"; f.card.style.background = "#2a2a2a"; f.card.style.color = "#fff"; });
+                                flippedCards = [];
+                            }, 700);
+                        }
+                    }
+                };
                 board.appendChild(card);
             });
         }
-
-        function startTimer() {
-            if (!gameStarted) {
-                gameStarted = true;
-                timerInterval = setInterval(() => {
-                    timer++;
-                    document.getElementById("timer").innerText = timer;
-                }, 1000);
-            }
-        }
-
-        function flipCard(card) {
-            if (flippedCards.length === 2 || card.classList.contains("matched") || flippedCards.includes(card)) return;
-
-            startTimer();
-
-            card.innerText = card.dataset.emoji;
-            card.style.background = "#e6b800";
-            card.style.color = "#000";
-            flippedCards.push(card);
-
-            if (flippedCards.length === 2) {
-                moves++;
-                document.getElementById("flipCount").innerText = moves;
-                checkMatch();
-            }
-        }
-
-        function checkMatch() {
-            const [card1, card2] = flippedCards;
-
-            if (card1.dataset.emoji === card2.dataset.emoji) {
-                card1.classList.add("matched");
-                card2.classList.add("matched");
-                card1.style.background = "#00b894";
-                card2.style.background = "#00b894";
-                matchedPairs++;
-                flippedCards = [];
-
-                if (matchedPairs === emojis.length) {
-                    clearInterval(timerInterval);
-                    document.getElementById("winMessage").innerText = `🎉 مبروك! كسبت في ${moves} محاولة و ${timer} ثانية!`;
-                }
-            } else {
-                setTimeout(() => {
-                    card1.innerText = "❓";
-                    card2.innerText = "❓";
-                    card1.style.background = "#2a2a2a";
-                    card2.style.background = "#2a2a2a";
-                    card1.style.color = "#fff";
-                    card2.style.color = "#fff";
-                    flippedCards = [];
-                }, 700);
-            }
-        }
-
         document.addEventListener("DOMContentLoaded", startMemoryGame);
+
+        /* --- لعبة Connect 4 الجديدة --- */
+        let c4Rows = 6, c4Cols = 7, c4Grid = [], c4CurrentPlayer = 1, c4Active = true;
+        function initC4() {
+            const board = document.getElementById("c4Board");
+            board.innerHTML = "";
+            c4Grid = Array(c4Rows).fill(0).map(() => Array(c4Cols).fill(0));
+            c4CurrentPlayer = 1; c4Active = true;
+            document.getElementById("c4Turn").innerText = "الأحمر 🔴";
+            document.getElementById("c4Status").innerText = "";
+            for (let r = 0; r < c4Rows; r++) {
+                for (let c = 0; c < c4Cols; c++) {
+                    const cell = document.createElement("div");
+                    cell.style.cssText = "background: #1e293b; border-radius: 50%; width: 32px; height: 32px; margin: auto; cursor: pointer; transition: 0.2s;";
+                    cell.dataset.col = c;
+                    cell.onclick = () => dropC4(c);
+                    board.appendChild(cell);
+                }
+            }
+        }
+        function dropC4(col) {
+            if (!c4Active) return;
+            for (let r = c4Rows - 1; r >= 0; r--) {
+                if (c4Grid[r][col] === 0) {
+                    c4Grid[r][col] = c4CurrentPlayer;
+                    updateC4Board();
+                    if (checkC4Win(r, col)) {
+                        document.getElementById("c4Status").innerText = `🎉 اللاعب (${c4CurrentPlayer === 1 ? 'الأحمر 🔴' : 'الأصفر 🟡'}) كسب!`;
+                        c4Active = false; return;
+                    }
+                    c4CurrentPlayer = c4CurrentPlayer === 1 ? 2 : 1;
+                    document.getElementById("c4Turn").innerText = c4CurrentPlayer === 1 ? "الأحمر 🔴" : "الأصفر 🟡";
+                    return;
+                }
+            }
+        }
+        function updateC4Board() {
+            const cells = document.getElementById("c4Board").children;
+            let idx = 0;
+            for (let r = 0; r < c4Rows; r++) {
+                for (let c = 0; c < c4Cols; c++) {
+                    cells[idx].style.background = c4Grid[r][c] === 1 ? "#ef4444" : (c4Grid[r][c] === 2 ? "#eab308" : "#1e293b");
+                    idx++;
+                }
+            }
+        }
+        function checkC4Win(r, c) {
+            function count(dr, dc) {
+                let cnt = 0, currR = r + dr, currC = c + dc;
+                while (currR >= 0 && currR < c4Rows && currC >= 0 && currC < c4Cols && c4Grid[currR][currC] === c4CurrentPlayer) {
+                    cnt++; currR += dr; currC += dc;
+                }
+                return cnt;
+            }
+            return (count(0,1) + count(0,-1) >= 3) || (count(1,0) + count(-1,0) >= 3) || (count(1,1) + count(-1,-1) >= 3) || (count(1,-1) + count(-1,1) >= 3);
+        }
+        initC4();
+
+        /* --- لعبة ترتيب الأرقام (Slide Puzzle) الجديدة --- */
+        let puzArr = [], puzMoves = 0;
+        function initPuzzle() {
+            puzArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ""];
+            puzMoves = 0;
+            document.getElementById("puzMoves").innerText = puzMoves;
+            document.getElementById("puzStatus").innerText = "";
+            // خلط الأرقام عشوائياً بشكل صحيح للحل
+            for (let i = 0; i < 100; i++) {
+                let emptyIdx = puzArr.indexOf("");
+                let validMoves = [];
+                let r = Math.floor(emptyIdx / 4), c = emptyIdx % 4;
+                if (r > 0) validMoves.push(emptyIdx - 4);
+                if (r < 3) validMoves.push(emptyIdx + 4);
+                if (c > 0) validMoves.push(emptyIdx - 1);
+                if (c < 3) validMoves.push(emptyIdx + 1);
+                let moveIdx = validMoves[Math.floor(Math.random() * validMoves.length)];
+                puzArr[emptyIdx] = puzArr[moveIdx];
+                puzArr[moveIdx] = "";
+            }
+            renderPuzzle();
+        }
+        function renderPuzzle() {
+            const board = document.getElementById("puzBoard");
+            board.innerHTML = "";
+            puzArr.forEach((val, idx) => {
+                const tile = document.createElement("div");
+                tile.style.cssText = `background: ${val === "" ? "#1e293b" : "#3b82f6"}; color: #fff; font-size: 18px; font-weight: bold; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none;`;
+                tile.innerText = val;
+                tile.onclick = () => movePuzzle(idx);
+                board.appendChild(tile);
+            });
+        }
+        function movePuzzle(idx) {
+            let emptyIdx = puzArr.indexOf("");
+            let r1 = Math.floor(idx / 4), c1 = idx % 4;
+            let r2 = Math.floor(emptyIdx / 4), c2 = emptyIdx % 4;
+            if (Math.abs(r1 - r2) + Math.abs(c1 - c2) === 1) {
+                puzArr[emptyIdx] = puzArr[idx];
+                puzArr[idx] = "";
+                puzMoves++;
+                document.getElementById("puzMoves").innerText = puzMoves;
+                renderPuzzle();
+                checkPuzzleWin();
+            }
+        }
+        function checkPuzzleWin() {
+            let winning = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ""];
+            if (puzArr.every((val, i) => val === winning[i])) {
+                document.getElementById("puzStatus").innerText = `🎉 بطل! رتبت الأرقام في ${puzMoves} حركة!`;
+                if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 80 });
+            }
+        }
+        initPuzzle();
     </script>
 
-    <!-- أكواد الإعلانات المحفوظة بالكامل -->
+    <!-- أكواد الإعلانات المحفوظة -->
     <script src="https://plump-plastic.com/bK3dV-0/P.3eppvkbdmsVEJpZgDj0-3kN/TkI/1bNcj/grx/LqT/cZ1kMwjhU-2FOvDkUg"></script>
     <script>
     (function(ljzd){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.currentScript || d.scripts[d.scripts.length - 1];
+    var d = document, s = d.createElement('script'), l = d.currentScript || d.scripts[d.scripts.length - 1];
     s.settings = ljzd || {};
     s.src = "\/\/massivesalad.com\/bQXuV\/s\/d.GqlJ0\/YtWgcz\/Fejmj9juJZLUMlkk\/P\/Tkc-1GM\/jrUm3KMCTTM\/t\/NVzGUayvNkTzcHxWNpwp";
     s.async = true;
@@ -857,20 +751,10 @@
     l.parentNode.insertBefore(s, l);
     })({})
     </script>
-
-    <!-- إعلان النقر (Popunder) من Adsterra -->
     <script data-cfasync="false" src="https://abscloud.org/1/eb1c2437b4821e7cb65557b721e6f141"></script>
-
-    <!-- إعلان البانر الثابت على الشمال (Banner 300x250) من Adsterra -->
     <div style="position: fixed; bottom: 10px; left: 10px; z-index: 9999;">
       <script>
-        atOptions = {
-          'key' : '47fa5b31368182c571ceff9f4c425eb1',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
+        atOptions = { 'key' : '47fa5b31368182c571ceff9f4c425eb1', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
       </script>
       <script src="https://bauval.org/22/47fa5b31368182c571ceff9f4c425eb1"></script>
     </div>    
